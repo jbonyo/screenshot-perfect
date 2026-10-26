@@ -147,8 +147,8 @@ export function Gallery() {
       <p className="mt-4 text-xs text-muted-foreground">Illustrative stock photography. Apexon project photos will be added once approved.</p>
       {open !== null && (
         <div role="dialog" aria-modal="true" aria-label="Image viewer" className="fixed inset-0 z-50 grid place-items-center bg-ink/95 p-4 animate-in fade-in" onClick={() => setOpen(null)}>
-          <img src={gallery[open].src} alt={gallery[open].alt} className="max-h-[80vh] max-w-full rounded-md object-contain" onClick={(e) => e.stopPropagation()} />
-          <p className="mt-4 text-center text-paper">{gallery[open].alt}</p>
+          <img src={gallery[open]!.src} alt={gallery[open]!.alt} className="max-h-[80vh] max-w-full rounded-md object-contain" onClick={(e) => e.stopPropagation()} />
+          <p className="mt-4 text-center text-paper">{gallery[open]!.alt}</p>
           <button autoFocus type="button" aria-label="Close" onClick={() => setOpen(null)} className="absolute right-4 top-4 grid h-12 w-12 place-items-center rounded-md bg-paper text-ink"><X /></button>
           <button type="button" aria-label="Previous image" onClick={(e) => { e.stopPropagation(); setOpen((open - 1 + n) % n); }} className="absolute left-4 top-1/2 grid h-12 w-12 place-items-center rounded-md bg-paper text-ink"><ChevronLeft /></button>
           <button type="button" aria-label="Next image" onClick={(e) => { e.stopPropagation(); setOpen((open + 1) % n); }} className="absolute right-4 top-1/2 grid h-12 w-12 place-items-center rounded-md bg-paper text-ink"><ChevronRight /></button>
