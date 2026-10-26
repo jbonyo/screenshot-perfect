@@ -27,19 +27,20 @@ export const contact: {
   location: ContactItem;
   hours: ContactItem;
 } = {
-  phone: { value: "Phone number to be confirmed", href: "/contact", confirmed: false },
-  whatsapp: { value: "WhatsApp to be confirmed", href: "/contact", confirmed: false },
-  email: { value: "Email to be confirmed", href: "/contact", confirmed: false },
+  phone: { value: "+254 759 551 005", href: "tel:+254759551005", confirmed: true },
+  whatsapp: { value: "+254 759 551 005", href: "https://wa.me/254759551005", confirmed: true },
+  email: { value: "apexontech2@gmail.com", href: "mailto:apexontech2@gmail.com", confirmed: true },
   location: { value: "Nairobi, Kenya (address to be confirmed)", href: "/contact", confirmed: false },
   hours: { value: "Business hours to be confirmed", href: "/contact", confirmed: false },
 };
 
-export type Social = { name: "LinkedIn" | "X" | "Facebook" | "Instagram"; href: string; confirmed: boolean };
+export type Social = { name: "LinkedIn" | "X" | "Facebook" | "Instagram" | "TikTok"; href: string; confirmed: boolean };
 // Add verified profile URLs and set confirmed: true. Unconfirmed links are not shown.
 export const socials: Social[] = [
-  { name: "LinkedIn", href: "", confirmed: false },
-  { name: "X", href: "", confirmed: false },
-  { name: "Facebook", href: "", confirmed: false },
+  { name: "Instagram", href: "https://www.instagram.com/apexon.global", confirmed: true },
+  { name: "Facebook", href: "https://www.facebook.com/search/top?q=Apexon%20Global%20Technologies", confirmed: true },
+  { name: "TikTok", href: "https://www.tiktok.com/@apexon.global", confirmed: true },
+  { name: "X", href: "https://x.com/ApexonTech", confirmed: true },
 ];
 
 export const cta = {
