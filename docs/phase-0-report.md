@@ -9,7 +9,7 @@ Prepared 7 November 2026 on branch `phase-0-prerequisites`.
 | Hero         | Static: one image, one message, one main "Request a Quote" button                   |
 | Enquiries    | Email to apexontech2@gmail.com plus a database table (public can add, not read)     |
 | Analytics    | Cookieless                                                                          |
-| Photos       | 1C (Unsplash, Sammyayot254), 2B, 3A. Approved 7 November 2026                     |
+| Photos       | 1C (Unsplash, Sammyayot254), 2B, 3A. Approved 7 November 2026                       |
 | Social links | Keep Instagram, TikTok and X for now; LinkedIn and the real Facebook page to follow |
 | ODPC         | Registered (per owner). Certificate to be filed for the Phase 3 documents page      |
 
