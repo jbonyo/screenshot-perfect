@@ -354,7 +354,7 @@ export function SiteFooter() {
           <p>
             © {new Date().getFullYear()} {company.name}. All rights reserved.
           </p>
-          <p>Privacy Policy and Terms coming soon · Photos on this site are illustrative.</p>
+          <p>Privacy Policy and Terms coming soon · Photos are illustrative.</p>
         </div>
       </div>
     </footer>

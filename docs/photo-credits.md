@@ -1,6 +1,7 @@
 # Photo credits
 
-Every photo on the site is labelled as illustrative. Files live in `src/assets/img`
+The footer states "Photos are illustrative" and every alt text ends "(illustrative
+image)" (owner decision, 7 November 2026). Files live in `src/assets/img`
 as WebP at 640, 1280 and 1920 px wide. Licences checked 7 November 2026.
 
 | File          | Used for                                 | Source                                                                                                                  | Photographer              | Licence                                                                                       |

@@ -38,7 +38,6 @@ export function Hero() {
             Our services
           </Link>
         </div>
-        <p className="mt-10 text-xs text-paper/70">Illustrative image</p>
       </div>
     </section>
   );

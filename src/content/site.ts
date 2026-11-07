@@ -91,7 +91,8 @@ export const nav = [
   { label: "Contact", to: "/contact" as const },
 ];
 
-// All photos are stock or generated images, labelled as illustrative on the site.
+// All photos are stock or generated images. The footer says "Photos are illustrative"
+// and each alt text ends "(illustrative image)" (owner decision, 7 November 2026).
 export const images = {
   rack: photo("rack", 1920, 1088),
   cabletray: photo("cabletray", 1920, 1088),

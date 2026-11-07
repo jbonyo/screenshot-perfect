@@ -33,13 +33,13 @@ Next check: real-visitor data once the site is published.
 
 ## Quality checklist (work plan section 7)
 
-| Area          | Result                                                                                                                                 |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Speed         | Hero image preloaded; other images lazy; fonts self-hosted; no layout shift. Mobile LCP gap logged above.                              |
-| Accessibility | Lighthouse 100. Scripted keyboard test, 11 of 11 pass: skip link, menu and image-viewer focus trap, Escape, focus return, sticky bars. |
-| Mobile        | No horizontal scrolling at 375 and 390 px; bottom bar does not cover focused items. Not yet tried on a real mid-range Android phone.   |
-| Content       | Confirmed address, hours and maintenance service; every photo labelled illustrative; no Senate or public-sector project wording.       |
-| Technical     | Lint 0 errors (6 warnings in the unused UI kit, already there), typecheck, tests and build pass.                                       |
+| Area          | Result                                                                                                                                                                  |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Speed         | Hero image preloaded; other images lazy; fonts self-hosted; no layout shift. Mobile LCP gap logged above.                                                               |
+| Accessibility | Lighthouse 100. Scripted keyboard test, 11 of 11 pass: skip link, menu and image-viewer focus trap, Escape, focus return, sticky bars.                                  |
+| Mobile        | No horizontal scrolling at 375 and 390 px; bottom bar does not cover focused items. Not yet tried on a real mid-range Android phone.                                    |
+| Content       | Confirmed address, hours and maintenance service; photos noted as illustrative in the footer and alt text (owner decision); no Senate or public-sector project wording. |
+| Technical     | Lint 0 errors (6 warnings in the unused UI kit, already there), typecheck, tests and build pass.                                                                        |
 
 ## Not finished, or needs you
 

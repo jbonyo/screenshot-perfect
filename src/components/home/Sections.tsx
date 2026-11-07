@@ -60,7 +60,8 @@ export function Handover() {
   return (
     <ol className="grid gap-px overflow-hidden rounded-lg border bg-border sm:grid-cols-2 lg:grid-cols-5">
       {handover.items.map((item, i) => (
-        <li key={item.title} className="bg-card p-6">
+        // Five items in a two-column layout leave a gap; let the last one span the row.
+        <li key={item.title} className="bg-card p-6 sm:last:col-span-2 lg:last:col-span-1">
           <span className="font-mono text-sm text-primary">0{i + 1}</span>
           <h3 className="mt-4 text-lg font-bold">{item.title}</h3>
           <p className="mt-2 text-muted-foreground">{item.body}</p>
@@ -115,15 +116,17 @@ export function Gallery() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, n]);
+  // Four columns from md up: one 2x2 photo, two singles, then five double-width
+  // photos fill exactly four rows, so there is no empty cell at the end.
   const spans = [
     "md:col-span-2 md:row-span-2",
     "",
     "",
     "md:col-span-2",
-    "",
-    "",
     "md:col-span-2",
-    "",
+    "md:col-span-2",
+    "md:col-span-2",
+    "md:col-span-2",
   ];
   const current = open === null ? null : gallery[open]!;
   return (
@@ -148,9 +151,6 @@ export function Gallery() {
           </Reveal>
         ))}
       </div>
-      <p className="mt-4 text-sm text-muted-foreground">
-        All photos are illustrative. Apexon project photos will be added once approved.
-      </p>
       {current && open !== null && (
         <div
           ref={dialogRef}
@@ -166,15 +166,12 @@ export function Gallery() {
           >
             <Photo
               photo={current.src}
-              alt={current.alt}
+              alt={`${current.alt} (${illustrativeLabel.toLowerCase()})`}
               sizes="100vw"
               priority
               className="max-h-[78vh] w-auto max-w-full rounded-md object-contain"
             />
-            <figcaption className="mt-4 text-center text-paper">
-              {current.alt}{" "}
-              <span className="text-paper/70">({illustrativeLabel.toLowerCase()})</span>
-            </figcaption>
+            <figcaption className="mt-4 text-center text-paper">{current.alt}</figcaption>
           </figure>
           <button
             autoFocus
