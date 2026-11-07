@@ -1,6 +1,6 @@
 # Phase 2 report: conversion (enquiries, WhatsApp, analytics, legal pages)
 
-Completed 7 November 2026 on branch `phase-2-conversion`. Not yet merged into `main`.
+Completed 7 November 2026. Merged into `main` and pushed (`59206fd`); Lovable synced the same commit.
 
 ## What was built
 
@@ -19,6 +19,10 @@ Owner answers used: reply within one business day; site surveys free; enquiries 
 
 ## Tests
 
+- After merging: the owner browsed the Lovable preview on their phone and found it
+  working (no submissions). A TEST quote sent through the hosted preview was stored,
+  emailed and showed the thank-you message, with no console errors; test row deleted.
+  The daily keep-alive workflow is registered and active on GitHub.
 - End-to-end in a real browser against the live backend, 24 of 24 pass: step
   validation, error summary focus and order, focus moving between steps, Back/Next
   keeping data, thank-you focus, service pre-selection, support form, honeypot dropped,
@@ -62,7 +66,6 @@ the page. Contact page: accessibility, best practices and SEO 100.
 - Legal review of the Privacy Policy and Terms (then set `legalPagesReviewed: true`).
 - ODPC registration; add the number to `dataProtection` in `src/content/site.ts` once issued.
 - Delete the unused `apexon-website` project in your personal Supabase organisation.
-- Test the forms on your own phone once merged.
 - When the domain is live: set `siteUrl`, update the Umami domain, and verify the
   domain in Resend so customers can get confirmation emails.
 - GitHub pauses scheduled workflows after 60 days without repository activity; any
