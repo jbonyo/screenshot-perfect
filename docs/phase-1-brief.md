@@ -6,6 +6,7 @@ For approval. Work happens on branch `phase-1-foundation`; nothing reaches `main
 ## What will change
 
 **Colour and type**
+
 - Buttons and red text on light backgrounds use the deeper red #AC1922 (7.0:1 with white).
   Bright red stays for large text, accents and dark sections. Top bar and quote band fixed the same way.
 - Focus ring visible on every background (off-white on red and dark areas).
@@ -15,6 +16,7 @@ For approval. Work happens on branch `phase-1-foundation`; nothing reaches `main
 - Logo tagline reads GLOBAL TECHNOLOGIES with a space.
 
 **Home page**
+
 - Static hero: one image, one headline, "Request a Quote" as the main button and
   "Our Services" as a quieter link. No auto-rotation, no zoom, no delayed headline.
 - Remove the scrolling "Featured Solutions" strip; the stat strip shows only real facts.
@@ -22,6 +24,7 @@ For approval. Work happens on branch `phase-1-foundation`; nothing reaches `main
   labelling, as-built drawings, walkthrough and sign-off.
 
 **Content** (all in `src/content/site.ts`)
+
 - Address, hours, Nairobi base, and maintenance and technical support as a fourth service.
 - Photos: the three replacements plus a credits file (`docs/photo-credits.md`); every
   stock image labelled "Illustrative image".
@@ -29,6 +32,7 @@ For approval. Work happens on branch `phase-1-foundation`; nothing reaches `main
   page) is hidden until the real page URL arrives. LinkedIn added when supplied.
 
 **Navigation and accessibility**
+
 - "Menu" button on mobile only; skip-to-content link; scroll padding so the sticky
   header and mobile bar never hide a focused item.
 - Keyboard focus trapped and restored in the menu overlay and image viewer.
@@ -36,15 +40,18 @@ For approval. Work happens on branch `phase-1-foundation`; nothing reaches `main
 - Form fields get proper names and autofill hints (the form itself is enabled in Phase 2).
 
 **Speed**
+
 - Images converted to WebP/AVIF at several sizes; only the hero image loads early.
 - Scroll-reveal made safe: content stays visible if scripts load slowly or fail.
 - Bundle report to spot unused libraries.
 
 **SEO basics**
+
 - Sitemap, share image, canonical links, unique titles and descriptions per page.
 - Structured data for the organisation (name, address, hours, phone).
 
 **Housekeeping**
+
 - Fix the 118 existing lint formatting errors; keep lint, tests and build passing.
 
 ## What will not change

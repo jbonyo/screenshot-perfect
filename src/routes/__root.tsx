@@ -11,8 +11,41 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import archivoFont from "../assets/fonts/archivo-latin-wght-normal.woff2?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { MobileActionBar, SiteFooter, SiteHeader } from "@/components/site/SiteChrome";
+import {
+  address,
+  company,
+  contact,
+  openingHours,
+  services,
+  siteUrl,
+  socials,
+} from "@/content/site";
+
+// Search-engine description of the business (schema.org ProfessionalService).
+function organisationData() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: company.name,
+    slogan: company.tagline,
+    ...(siteUrl ? { url: siteUrl, image: `${siteUrl}/og-image.jpg` } : {}),
+    telephone: contact.phone.href.replace("tel:", ""),
+    email: contact.email.value,
+    address: { "@type": "PostalAddress", ...address },
+    areaServed: company.country,
+    openingHoursSpecification: openingHours.map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.days,
+      opens: h.opens,
+      closes: h.closes,
+    })),
+    knowsAbout: services.map((s) => s.title),
+    sameAs: socials.filter((s) => s.confirmed && s.href).map((s) => s.href),
+  };
+}
 
 function NotFoundComponent() {
   return (
@@ -79,21 +112,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Apexon Global Technologies" },
-      {
-        name: "description",
-        content:
-          "Technology You Can Depend On — networking, IT infrastructure, IPTV and AV in Kenya.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: company.name },
+      { name: "theme-color", content: "#0e0e0e" },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(organisationData()) }],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      // Self-hosted; preloading the main font lets the hero headline paint sooner.
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600&display=swap",
+        rel: "preload",
+        href: archivoFont,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       {
         rel: "stylesheet",
@@ -127,9 +157,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <a
+        href="#main"
+        className="sr-only z-[60] rounded-md bg-ink px-4 py-3 font-bold text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Skip to content
+      </a>
       <SiteHeader />
-      <main>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <main id="main" tabIndex={-1} className="outline-none">
         <Outlet />
       </main>
       <SiteFooter />

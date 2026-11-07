@@ -1,116 +1,50 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowRight, Check, ChevronLeft, ChevronRight, Pause, Play, X } from "lucide-react";
+import { ArrowRight, Check, ChevronLeft, ChevronRight, X } from "lucide-react";
 import {
   gallery,
-  images,
+  handover,
+  illustrativeLabel,
   principles,
   services,
   showTestimonials,
   testimonials,
 } from "@/content/site";
+import { Photo } from "@/components/site/Photo";
 import { Reveal } from "@/components/site/Reveal";
-
-const solutions = [
-  { title: "Structured Cabling", tag: "Networking", image: images.rack },
-  { title: "Enterprise Wi-Fi", tag: "IT Infrastructure", image: images.wifi },
-  { title: "Boardroom AV", tag: "Audiovisual", image: images.boardroom },
-  { title: "IPTV Distribution", tag: "IPTV", image: images.iptv },
-  { title: "Testing & Certification", tag: "Delivery", image: images.testing },
-  { title: "Cable Containment", tag: "Networking", image: images.cabletray },
-];
-
-export function FeaturedSolutions() {
-  const [paused, setPaused] = useState(false);
-  const Card = ({ s, hidden }: { s: (typeof solutions)[number]; hidden?: boolean }) => (
-    <Link
-      to="/services"
-      tabIndex={hidden ? -1 : 0}
-      aria-hidden={hidden}
-      className="group relative block h-80 w-72 shrink-0 overflow-hidden rounded-lg bg-ink-soft shadow-[var(--shadow-card)] md:w-80"
-    >
-      <img
-        src={s.image}
-        alt=""
-        loading="lazy"
-        width={640}
-        height={360}
-        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0" style={{ background: "var(--overlay-card)" }} />
-      <div className="absolute inset-x-0 bottom-0 p-6 text-paper">
-        <p className="font-mono text-xs uppercase tracking-widest text-primary">{s.tag}</p>
-        <p className="mt-2 text-2xl font-black tracking-tight">{s.title}</p>
-        <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold opacity-80 group-hover:opacity-100">
-          Learn more <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-        </span>
-      </div>
-    </Link>
-  );
-  return (
-    <section className="overflow-hidden bg-ink py-20 text-paper">
-      <div className="mx-auto mb-10 flex max-w-7xl flex-wrap items-end justify-between gap-4 px-6">
-        <div>
-          <p className="eyebrow">Featured Solutions</p>
-          <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
-            What we put in the ceiling, the rack, and the room.
-          </h2>
-        </div>
-        <button
-          type="button"
-          onClick={() => setPaused((p) => !p)}
-          className="btn btn-outline-light"
-          aria-pressed={paused}
-        >
-          {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}{" "}
-          {paused ? "Play" : "Pause"}
-        </button>
-      </div>
-      <div className="marquee-viewport overflow-hidden">
-        <div className="marquee-track animate-marquee flex w-max gap-6 px-3" data-paused={paused}>
-          {solutions.map((s) => (
-            <Card key={s.title} s={s} />
-          ))}
-          <div className="marquee-dup flex gap-6">
-            {solutions.map((s) => (
-              <Card key={`d-${s.title}`} s={s} hidden />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+import { useFocusTrap } from "@/hooks/use-focus-trap";
 
 export function ServiceCards() {
   return (
-    <div className="grid gap-6 md:grid-cols-3">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {services.map((s, i) => (
         <Reveal key={s.slug} delay={i * 100}>
           <article className="group flex h-full flex-col overflow-hidden rounded-lg border bg-card transition hover:-translate-y-1 hover:shadow-[var(--shadow-card)]">
             <div className="aspect-[16/10] overflow-hidden">
-              <img
-                src={s.image}
+              <Photo
+                photo={s.image}
                 alt={s.alt}
-                loading="lazy"
-                width={640}
-                height={400}
+                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
               />
             </div>
             <div className="flex flex-1 flex-col p-6">
               <span className="font-mono text-xs text-primary">0{i + 1}</span>
-              <h3 className="mt-2 text-2xl font-black tracking-tight">{s.title}</h3>
+              <h3 className="mt-2 text-xl font-bold tracking-tight">{s.title}</h3>
               <p className="mt-3 text-muted-foreground">{s.short}</p>
-              <div className="mt-auto flex flex-wrap gap-4 pt-6 text-sm font-bold">
+              <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-6 text-sm font-bold">
                 <Link
                   to="/services"
                   hash={s.slug}
-                  className="inline-flex items-center gap-1 hover:text-primary"
+                  className="inline-flex min-h-11 items-center gap-1 hover:text-primary"
                 >
-                  Explore <ArrowRight className="h-4 w-4" />
+                  Explore <span className="sr-only">{s.title}</span>
+                  <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
-                <Link to="/contact" className="text-primary hover:underline">
+                <Link
+                  to="/contact"
+                  className="inline-flex min-h-11 items-center text-primary hover:underline"
+                >
                   Request a quote
                 </Link>
               </div>
@@ -119,6 +53,20 @@ export function ServiceCards() {
         </Reveal>
       ))}
     </div>
+  );
+}
+
+export function Handover() {
+  return (
+    <ol className="grid gap-px overflow-hidden rounded-lg border bg-border sm:grid-cols-2 lg:grid-cols-5">
+      {handover.items.map((item, i) => (
+        <li key={item.title} className="bg-card p-6">
+          <span className="font-mono text-sm text-primary">0{i + 1}</span>
+          <h3 className="mt-4 text-lg font-bold">{item.title}</h3>
+          <p className="mt-2 text-muted-foreground">{item.body}</p>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -141,12 +89,12 @@ export function Accountability() {
     <div className="grid gap-px overflow-hidden rounded-lg border bg-border sm:grid-cols-2 lg:grid-cols-4">
       {principles.map((p, i) => (
         <Reveal key={p.title} delay={i * 80} className="h-full">
-          <div className="group h-full bg-card p-8 transition hover:bg-ink hover:text-paper">
-            <span className="grid h-10 w-10 place-items-center rounded-md bg-primary text-primary-foreground">
-              <Check className="h-5 w-5" />
+          <div className="h-full bg-card p-8">
+            <span className="grid h-10 w-10 place-items-center rounded-md bg-brand text-primary-foreground">
+              <Check className="h-5 w-5" aria-hidden />
             </span>
-            <h3 className="mt-6 text-xl font-black">{p.title}</h3>
-            <p className="mt-2 text-muted-foreground group-hover:text-paper-muted">{p.body}</p>
+            <h3 className="mt-6 text-xl font-bold">{p.title}</h3>
+            <p className="mt-2 text-muted-foreground">{p.body}</p>
           </div>
         </Reveal>
       ))}
@@ -157,10 +105,10 @@ export function Accountability() {
 export function Gallery() {
   const [open, setOpen] = useState<number | null>(null);
   const n = gallery.length;
+  const dialogRef = useFocusTrap<HTMLDivElement>(open !== null, () => setOpen(null));
   useEffect(() => {
     if (open === null) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(null);
       if (e.key === "ArrowRight") setOpen((x) => (x === null ? x : (x + 1) % n));
       if (e.key === "ArrowLeft") setOpen((x) => (x === null ? x : (x - 1 + n) % n));
     };
@@ -177,23 +125,22 @@ export function Gallery() {
     "md:col-span-2",
     "",
   ];
+  const current = open === null ? null : gallery[open]!;
   return (
     <>
       <div className="grid auto-rows-[180px] grid-cols-2 gap-3 md:auto-rows-[200px] md:grid-cols-4">
         {gallery.map((g, i) => (
-          <Reveal key={i} delay={(i % 4) * 70} className={spans[i] ?? ""}>
+          <Reveal key={g.alt} delay={(i % 4) * 70} className={spans[i] ?? ""}>
             <button
               type="button"
               onClick={() => setOpen(i)}
               className="group relative h-full w-full overflow-hidden rounded-md bg-muted"
               aria-label={`View larger: ${g.alt}`}
             >
-              <img
-                src={g.src}
-                alt={g.alt}
-                loading="lazy"
-                width={800}
-                height={450}
+              <Photo
+                photo={g.src}
+                alt=""
+                sizes="(min-width: 768px) 50vw, 50vw"
                 className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
               />
               <span className="absolute inset-0 bg-ink/0 transition group-hover:bg-ink/30" />
@@ -201,32 +148,42 @@ export function Gallery() {
           </Reveal>
         ))}
       </div>
-      <p className="mt-4 text-xs text-muted-foreground">
-        Illustrative stock photography. Apexon project photos will be added once approved.
+      <p className="mt-4 text-sm text-muted-foreground">
+        All photos are illustrative. Apexon project photos will be added once approved.
       </p>
-      {open !== null && (
+      {current && open !== null && (
         <div
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label="Image viewer"
-          className="fixed inset-0 z-50 grid place-items-center bg-ink/95 p-4 animate-in fade-in"
+          className="surface-dark fixed inset-0 z-50 grid place-items-center bg-ink/95 p-4 animate-in fade-in"
           onClick={() => setOpen(null)}
         >
-          <img
-            src={gallery[open]!.src}
-            alt={gallery[open]!.alt}
-            className="max-h-[80vh] max-w-full rounded-md object-contain"
+          <figure
+            className="flex max-w-full flex-col items-center"
             onClick={(e) => e.stopPropagation()}
-          />
-          <p className="mt-4 text-center text-paper">{gallery[open]!.alt}</p>
+          >
+            <Photo
+              photo={current.src}
+              alt={current.alt}
+              sizes="100vw"
+              priority
+              className="max-h-[78vh] w-auto max-w-full rounded-md object-contain"
+            />
+            <figcaption className="mt-4 text-center text-paper">
+              {current.alt}{" "}
+              <span className="text-paper/70">({illustrativeLabel.toLowerCase()})</span>
+            </figcaption>
+          </figure>
           <button
             autoFocus
             type="button"
-            aria-label="Close"
+            aria-label="Close image viewer"
             onClick={() => setOpen(null)}
             className="absolute right-4 top-4 grid h-12 w-12 place-items-center rounded-md bg-paper text-ink"
           >
-            <X />
+            <X aria-hidden />
           </button>
           <button
             type="button"
@@ -237,7 +194,7 @@ export function Gallery() {
             }}
             className="absolute left-4 top-1/2 grid h-12 w-12 place-items-center rounded-md bg-paper text-ink"
           >
-            <ChevronLeft />
+            <ChevronLeft aria-hidden />
           </button>
           <button
             type="button"
@@ -248,7 +205,7 @@ export function Gallery() {
             }}
             className="absolute right-4 top-1/2 grid h-12 w-12 place-items-center rounded-md bg-paper text-ink"
           >
-            <ChevronRight />
+            <ChevronRight aria-hidden />
           </button>
         </div>
       )}

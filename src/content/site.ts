@@ -1,13 +1,6 @@
 // Central content for the whole site. Update details here only.
 // Anything with `confirmed: false` is a placeholder and is shown as such.
-import rack from "@/assets/rack.jpg";
-import engineer from "@/assets/engineer.jpg";
-import boardroom from "@/assets/boardroom.jpg";
-import testing from "@/assets/testing.jpg";
-import iptv from "@/assets/iptv.jpg";
-import cabletray from "@/assets/cabletray.jpg";
-import wifi from "@/assets/wifi.jpg";
-import building from "@/assets/building.jpg";
+import { photo } from "@/lib/photos";
 
 export const company = {
   name: "Apexon Global Technologies",
@@ -15,8 +8,14 @@ export const company = {
   tagline: "Technology You Can Depend On.",
   secondaryTagline: "Built to Perform. Built to Last.",
   positioning: "The Accountable Engineering Team",
+  city: "Nairobi",
   country: "Kenya",
 };
+
+// Public address of the site, e.g. "https://apexonglobal.co.ke" (no trailing slash).
+// Leave empty until the domain is live: canonical links and absolute share-image
+// URLs are only emitted once this is set.
+export const siteUrl = "";
 
 type ContactItem = { value: string; href: string; confirmed: boolean };
 
@@ -28,15 +27,42 @@ export const contact: {
   hours: ContactItem;
 } = {
   phone: { value: "+254 759 551 005", href: "tel:+254759551005", confirmed: true },
-  whatsapp: { value: "+254 759 551 005", href: "https://wa.me/254759551005", confirmed: true },
-  email: { value: "apexontech2@gmail.com", href: "mailto:apexontech2@gmail.com", confirmed: true },
-  location: {
-    value: "Nairobi, Kenya (address to be confirmed)",
-    href: "/contact",
-    confirmed: false,
+  whatsapp: {
+    value: "+254 759 551 005",
+    href: "https://wa.me/254759551005",
+    confirmed: true,
   },
-  hours: { value: "Business hours to be confirmed", href: "/contact", confirmed: false },
+  email: {
+    value: "apexontech2@gmail.com",
+    href: "mailto:apexontech2@gmail.com",
+    confirmed: true,
+  },
+  location: {
+    value: "TransNational Bank building, 3rd floor, Office 34, Nairobi (visits by appointment)",
+    href: "/contact",
+    confirmed: true,
+  },
+  hours: {
+    value: "Mon–Fri 8:00 am – 5:00 pm · Sat 9:00 am – 4:00 pm",
+    href: "/contact",
+    confirmed: true,
+  },
 };
+
+// Structured versions of the address and hours, used for search-engine data.
+export const address = {
+  streetAddress: "TransNational Bank building, 3rd floor, Office 34",
+  addressLocality: "Nairobi",
+  addressCountry: "KE",
+};
+export const openingHours = [
+  {
+    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:00",
+    closes: "17:00",
+  },
+  { days: ["Saturday"], opens: "09:00", closes: "16:00" },
+];
 
 export type Social = {
   name: "LinkedIn" | "X" | "Facebook" | "Instagram" | "TikTok";
@@ -46,13 +72,11 @@ export type Social = {
 // Add verified profile URLs and set confirmed: true. Unconfirmed links are not shown.
 export const socials: Social[] = [
   { name: "Instagram", href: "https://www.instagram.com/apexon.global", confirmed: true },
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/search/top?q=Apexon%20Global%20Technologies",
-    confirmed: true,
-  },
   { name: "TikTok", href: "https://www.tiktok.com/@apexon.global", confirmed: true },
   { name: "X", href: "https://x.com/ApexonTech", confirmed: true },
+  // Waiting for the real page URLs.
+  { name: "LinkedIn", href: "", confirmed: false },
+  { name: "Facebook", href: "", confirmed: false },
 ];
 
 export const cta = {
@@ -67,49 +91,34 @@ export const nav = [
   { label: "Contact", to: "/contact" as const },
 ];
 
-export const images = { rack, engineer, boardroom, testing, iptv, cabletray, wifi, building };
+// All photos are stock or generated images, labelled as illustrative on the site.
+export const images = {
+  rack: photo("rack", 1920, 1088),
+  cabletray: photo("cabletray", 1920, 1088),
+  iptv: photo("iptv", 1920, 1088),
+  testing: photo("testing", 1920, 1088),
+  wifi: photo("wifi", 1920, 1088),
+  technician: photo("technician", 1920, 1440),
+  trainingRoom: photo("training-room", 1920, 1280),
+  fibrePanel: photo("fibre-panel", 1920, 1278),
+};
 
-export const heroSlides = [
-  {
-    eyebrow: "Apexon Global Technologies",
-    title: "Technology You Can Depend On.",
-    body: "Reliable networking, IT infrastructure, and audiovisual systems delivered with engineering discipline.",
-    cta: { label: "Request a Quote", to: "/contact" as const },
-    image: rack,
-    alt: "Neatly organised network rack with structured cabling (illustrative stock image)",
-  },
-  {
-    eyebrow: "Networking & Infrastructure",
-    title: "Build a Stronger Network.",
-    body: "Structured cabling and IT infrastructure designed around your organisation's needs.",
-    cta: { label: "Explore Our Services", to: "/services" as const },
-    image: cabletray,
-    alt: "Overhead cable tray with bundled network cables in a corridor (illustrative stock image)",
-  },
-  {
-    eyebrow: "IPTV & Audiovisual",
-    title: "Connect Spaces. Deliver Better Experiences.",
-    body: "Professional IPTV and audiovisual solutions for suitable institutional and corporate environments.",
-    cta: { label: "Discuss Your Project", to: "/contact" as const },
-    image: iptv,
-    alt: "Lobby with a large multi-screen video wall (illustrative stock image)",
-  },
-  {
-    eyebrow: "Engineering & Delivery",
-    title: "Built to Perform. Built to Last.",
-    body: "A structured approach to installation, testing, documentation, and handover.",
-    cta: { label: "How We Work", to: "/about" as const },
-    image: testing,
-    alt: "Technician certifying a network cable with a handheld tester (illustrative stock image)",
-  },
-  {
-    eyebrow: "Corporate & Institutional",
-    title: "Technology Infrastructure for Critical Operations.",
-    body: "Practical technology solutions for government institutions, corporate organisations, and technology partners.",
-    cta: { label: "Talk to Our Team", to: "/contact" as const },
-    image: building,
-    alt: "Modern institutional office building at dusk (illustrative stock image)",
-  },
+export const illustrativeLabel = "Illustrative image";
+
+export const hero = {
+  eyebrow: "Apexon Global Technologies · Nairobi",
+  title: "Technology You Can Depend On.",
+  body: "Networking, IT infrastructure, IPTV and audiovisual systems, and the maintenance that keeps them running, delivered with engineering discipline.",
+  image: images.rack,
+  alt: "Neatly organised network rack with structured cabling (illustrative image)",
+};
+
+// Plain statements of fact only. No figures until they can be proven.
+export const facts = [
+  "Nairobi-based",
+  "Networking & structured cabling",
+  "IT infrastructure, IPTV & AV",
+  "Maintenance & technical support",
 ];
 
 export const services = [
@@ -117,14 +126,14 @@ export const services = [
     slug: "networking",
     title: "Networking & Structured Cabling",
     short:
-      "Copper and fibre cabling, racks, and patching — designed, installed, labelled, and tested.",
+      "Copper and fibre cabling, racks, and patching, designed, installed, labelled, and tested.",
     points: [
       "Cabling design & installation",
       "Rack & cabinet build-outs",
       "Labelling and test reports",
     ],
-    image: rack,
-    alt: "Structured cabling in a network rack (illustrative stock image)",
+    image: images.fibrePanel,
+    alt: "Fibre patch leads in a rack-mounted patch panel (illustrative image)",
   },
   {
     slug: "infrastructure",
@@ -135,23 +144,40 @@ export const services = [
       "Enterprise Wi-Fi coverage",
       "Infrastructure documentation",
     ],
-    image: wifi,
-    alt: "Ceiling-mounted Wi-Fi access point in an office (illustrative stock image)",
+    image: images.wifi,
+    alt: "Ceiling-mounted Wi-Fi access point in an office (illustrative image)",
   },
   {
     slug: "iptv-av",
     title: "IPTV & Audiovisual Systems",
     short: "Displays, IPTV distribution, and meeting-room AV for institutions and corporates.",
-    points: ["IPTV distribution", "Boardroom & conference AV", "Display & signage installs"],
-    image: boardroom,
-    alt: "Boardroom with display, speakers, and conference camera (illustrative stock image)",
+    points: ["IPTV distribution", "Meeting & training room AV", "Display & signage installs"],
+    image: images.trainingRoom,
+    alt: "Training room with a large wall display and rows of desks (illustrative image)",
+  },
+  {
+    slug: "maintenance",
+    title: "Maintenance & Technical Support",
+    short:
+      "Planned maintenance and fault support for the systems we install, and for existing networks.",
+    points: [
+      "Preventive maintenance visits",
+      "Fault diagnosis & repair",
+      "Support for existing installations",
+    ],
+    image: images.testing,
+    alt: "Technician testing a network cable with a handheld tester (illustrative image)",
   },
 ];
 
 // Set to true and fill `testimonials` once genuine, approved reviews exist.
 export const showTestimonials = false;
-export const testimonials: { quote: string; name: string; role: string; organisation: string }[] =
-  [];
+export const testimonials: {
+  quote: string;
+  name: string;
+  role: string;
+  organisation: string;
+}[] = [];
 
 export const principles = [
   { title: "Thorough testing", body: "Every link and system is tested before we call it done." },
@@ -165,11 +191,23 @@ export const principles = [
   },
   {
     title: "Professional handover",
-    body: "A walkthrough and a documented handover — not just a closed ticket.",
+    body: "A walkthrough and a documented handover, not just a closed ticket.",
   },
 ];
 
 export const process = ["Assess", "Design", "Supply", "Install", "Test", "Hand over"];
+
+export const handover = {
+  title: "What every handover includes",
+  body: "When we finish, you receive the records you need to run, audit, and extend the system.",
+  items: [
+    { title: "Test reports", body: "Results for every tested link and system." },
+    { title: "Labelling", body: "Ports, cables, and equipment labelled to a clear scheme." },
+    { title: "As-built drawings", body: "Layouts showing what was installed and where." },
+    { title: "Walkthrough", body: "Your team is shown how the system is laid out and used." },
+    { title: "Sign-off", body: "A documented handover with clear responsibility." },
+  ],
+};
 
 export const audiences = [
   {
@@ -187,12 +225,12 @@ export const audiences = [
 ];
 
 export const gallery = [
-  { src: rack, alt: "Network rack with blue structured cabling", kind: "stock" as const },
-  { src: engineer, alt: "Engineer patching cables at a patch panel", kind: "stock" as const },
-  { src: boardroom, alt: "Conference room with audiovisual setup", kind: "stock" as const },
-  { src: cabletray, alt: "Cable tray along a corridor ceiling", kind: "stock" as const },
-  { src: testing, alt: "Cable certification testing", kind: "stock" as const },
-  { src: iptv, alt: "Lobby video wall", kind: "stock" as const },
-  { src: wifi, alt: "Office Wi-Fi access point", kind: "stock" as const },
-  { src: building, alt: "Institutional building exterior", kind: "stock" as const },
+  { src: images.rack, alt: "Network rack with blue structured cabling" },
+  { src: images.technician, alt: "Technician working on cabling in a network rack" },
+  { src: images.trainingRoom, alt: "Training room with a large wall display" },
+  { src: images.cabletray, alt: "Cable tray along a corridor ceiling" },
+  { src: images.testing, alt: "Cable certification testing" },
+  { src: images.iptv, alt: "Lobby video wall" },
+  { src: images.wifi, alt: "Office Wi-Fi access point" },
+  { src: images.fibrePanel, alt: "Fibre patch panel in a rack" },
 ];

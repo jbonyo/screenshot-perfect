@@ -4,14 +4,14 @@ Prepared 7 November 2026 on branch `phase-0-prerequisites`.
 
 ## Decisions
 
-| Decision | Outcome |
-|---|---|
-| Hero | Static: one image, one message, one main "Request a Quote" button |
-| Enquiries | Email to apexontech2@gmail.com plus a database table (public can add, not read) |
-| Analytics | Cookieless |
-| Photos | 1C (Unsplash, Sammyayot254) pending final pick, 2B, 3A |
+| Decision     | Outcome                                                                             |
+| ------------ | ----------------------------------------------------------------------------------- |
+| Hero         | Static: one image, one message, one main "Request a Quote" button                   |
+| Enquiries    | Email to apexontech2@gmail.com plus a database table (public can add, not read)     |
+| Analytics    | Cookieless                                                                          |
+| Photos       | 1C (Unsplash, Sammyayot254), 2B, 3A. Approved 7 November 2026                     |
 | Social links | Keep Instagram, TikTok and X for now; LinkedIn and the real Facebook page to follow |
-| ODPC | Registered (per owner). Certificate to be filed for the Phase 3 documents page |
+| ODPC         | Registered (per owner). Certificate to be filed for the Phase 3 documents page      |
 
 ## Confirmed facts
 
@@ -27,18 +27,18 @@ Lovable preview, home page, using Lighthouse's default mobile and desktop settin
 The preview needs a viewer link, so Google's hosted PageSpeed could not reach it.
 Re-run on the published URL once the site is live.
 
-| Measure | Mobile | Desktop | Target |
-|---|---|---|---|
-| Performance | 83 | 88 | |
-| Accessibility | 96 | 96 | |
-| Best practices | 96 | 96 | |
-| SEO | 63 | 63 | |
-| Largest Contentful Paint | 3.3 s | 1.4 s | under 2.5 s |
-| First Contentful Paint | 3.3 s | 1.4 s | |
-| Cumulative Layout Shift | 0 | 0 | under 0.1 |
-| Total Blocking Time | 0 ms | 0 ms | |
-| Speed Index | 5.0 s | 2.0 s | |
-| Page weight | 230 KiB | 230 KiB | |
+| Measure                  | Mobile  | Desktop | Target      |
+| ------------------------ | ------- | ------- | ----------- |
+| Performance              | 83      | 88      |             |
+| Accessibility            | 96      | 96      |             |
+| Best practices           | 96      | 96      |             |
+| SEO                      | 63      | 63      |             |
+| Largest Contentful Paint | 3.3 s   | 1.4 s   | under 2.5 s |
+| First Contentful Paint   | 3.3 s   | 1.4 s   |             |
+| Cumulative Layout Shift  | 0       | 0       | under 0.1   |
+| Total Blocking Time      | 0 ms    | 0 ms    |             |
+| Speed Index              | 5.0 s   | 2.0 s   |             |
+| Page weight              | 230 KiB | 230 KiB |             |
 
 Findings behind the numbers:
 
@@ -60,18 +60,18 @@ Findings behind the numbers:
 
 WHOIS checked 7 November 2026:
 
-| Domain | Status |
-|---|---|
-| apexonglobal.co.ke | Available (recommended) |
-| apexon.co.ke | Available |
-| apexonglobaltech.co.ke | Available |
-| apexon.ke | Available |
-| apexonglobaltech.com | Available |
-| apexonglobal.com | Taken (registered March 2026) |
+| Domain                 | Status                        |
+| ---------------------- | ----------------------------- |
+| apexonglobal.co.ke     | Available (recommended)       |
+| apexon.co.ke           | Available                     |
+| apexonglobaltech.co.ke | Available                     |
+| apexon.ke              | Available                     |
+| apexonglobaltech.com   | Available                     |
+| apexonglobal.com       | Taken (registered March 2026) |
 
 ## Still open
 
-- Final choice for photo 1 (1C, 1D or 1E).
+- ~~Final choice for photo 1~~: 1C chosen.
 - Domain registration and hosting choice.
 - LinkedIn and Facebook page URLs.
 - Google Business Profile (owner action, offsite).

@@ -1,13 +1,34 @@
 @import "tailwindcss" source(none);
 @source "../src";
+/* The shadcn kit in components/ui is not used by any page yet. Skipping it keeps
+   the render-blocking stylesheet small. Remove this line when a page imports it. */
+@source not "./components/ui";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Self-hosted fonts (SIL OFL, see src/assets/fonts). Latin subset only. */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("./assets/fonts/archivo-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url("./assets/fonts/jetbrains-mono-latin-600-normal.woff2") format("woff2");
+}
 
 @theme inline {
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-brand: var(--brand-deep);
+  --color-brand-bright: var(--brand-bright);
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
@@ -41,9 +62,15 @@
 
 :root {
   --radius: 0.375rem;
-  /* Brand: Red #FF4438, Near-black #0E0E0E, Off-white #F4F1EA */
-  --primary: oklch(0.65 0.22 29);
-  --primary-deep: oklch(0.48 0.18 25);
+  /* Brand: Red #FF4438, Near-black #0E0E0E, Off-white #F4F1EA.
+     Bright red fails contrast on light backgrounds, so --primary is the deep red
+     by default and switches to bright red inside .surface-dark. Filled red areas
+     with white text always use --brand-deep (7.0:1). */
+  --brand-bright: oklch(0.65 0.22 29);
+  --brand-deep: #ac1922;
+  --primary: var(--brand-deep);
+  --primary-deep: #8e141c;
+  --focus: var(--brand-deep);
   --primary-foreground: oklch(0.99 0.005 85);
   --ink: oklch(0.16 0 0);
   --ink-soft: oklch(0.22 0.003 60);
@@ -77,7 +104,7 @@
   );
   --overlay-card: linear-gradient(180deg, transparent 30%, oklch(0.16 0 0 / 0.9) 100%);
   --shadow-card: 0 20px 40px -24px oklch(0.16 0 0 / 0.45);
-  --shadow-red: 0 12px 28px -12px color-mix(in oklab, var(--primary) 70%, transparent);
+  --shadow-red: 0 12px 28px -12px color-mix(in oklab, var(--brand-deep) 70%, transparent);
 }
 
 @layer base {
@@ -86,6 +113,9 @@
   }
   html {
     scroll-behavior: smooth;
+    /* Keep focused and anchored items clear of the sticky header and mobile bar. */
+    scroll-padding-top: 6rem;
+    scroll-padding-bottom: 5rem;
   }
   body {
     background-color: var(--color-background);
@@ -94,9 +124,19 @@
     -webkit-font-smoothing: antialiased;
   }
   :focus-visible {
-    outline: 3px solid var(--primary);
+    outline: 3px solid var(--focus);
     outline-offset: 3px;
   }
+}
+
+/* Dark sections: bright red reads well on ink; focus ring turns off-white. */
+.surface-dark {
+  --primary: var(--brand-bright);
+  --focus: var(--paper);
+}
+/* Filled deep-red sections. */
+.surface-red {
+  --focus: var(--paper);
 }
 
 @utility btn {
@@ -120,7 +160,7 @@
   }
 }
 @utility btn-primary {
-  background: var(--primary);
+  background: var(--brand-deep);
   color: var(--primary-foreground);
   box-shadow: var(--shadow-red);
   &:hover {
@@ -164,14 +204,6 @@
 }
 
 /* Motion system */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
 @keyframes rise {
   from {
     opacity: 0;
@@ -182,38 +214,20 @@
     transform: translateY(0);
   }
 }
-@keyframes kenburns {
-  from {
-    transform: scale(1.08);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-@utility animate-marquee {
-  animation: marquee 45s linear infinite;
-}
 @utility animate-rise {
   animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-@utility animate-kenburns {
-  animation: kenburns 7s ease-out both;
-}
+/* Content is visible in the server HTML. Reveal only hides items that start
+   below the fold, and only after scripts have run, so slow or failed scripts
+   never leave content invisible. */
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
   transition:
     opacity 0.7s ease,
     transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-.marquee-track:hover,
-.marquee-track:focus-within,
-.marquee-track[data-paused="true"] {
-  animation-play-state: paused;
+.reveal.reveal-pending {
+  opacity: 0;
+  transform: translateY(24px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -225,18 +239,8 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .reveal {
+  .reveal.reveal-pending {
     opacity: 1;
     transform: none;
-  }
-  .marquee-track {
-    animation: none !important;
-    transform: none !important;
-  }
-  .marquee-viewport {
-    overflow-x: auto !important;
-  }
-  .marquee-dup {
-    display: none !important;
   }
 }

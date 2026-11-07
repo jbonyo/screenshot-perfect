@@ -43,7 +43,7 @@ export function Logo({
           className={sub}
           style={{ font: "600 30px 'JetBrains Mono', monospace" }}
         >
-          GLOBALTECHNOLOGIES
+          GLOBAL TECHNOLOGIES
         </text>
       )}
     </svg>
