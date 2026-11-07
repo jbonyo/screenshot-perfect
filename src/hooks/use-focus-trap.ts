@@ -9,10 +9,26 @@ export function useFocusTrap<T extends HTMLElement>(active: boolean, onClose: ()
   const ref = useRef<T>(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
+  // Track focus while closed: by the time the open effect runs, autoFocus has
+  // already moved focus into the dialog, so the opener must be known earlier.
+  const openerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (active) return;
+    const remember = (e: FocusEvent) => {
+      const target = e.target as HTMLElement;
+      // The dialog's autoFocus fires before this listener is removed (and before
+      // React attaches `ref`), so skip anything inside a modal dialog.
+      if (target.closest?.('[aria-modal="true"]')) return;
+      openerRef.current = target;
+    };
+    document.addEventListener("focusin", remember);
+    return () => document.removeEventListener("focusin", remember);
+  }, [active]);
 
   useEffect(() => {
     if (!active) return;
-    const opener = document.activeElement as HTMLElement | null;
+    const opener = openerRef.current;
     const el = ref.current;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -39,7 +55,7 @@ export function useFocusTrap<T extends HTMLElement>(active: boolean, onClose: ()
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = previousOverflow;
-      opener?.focus?.();
+      if (opener?.isConnected) opener.focus();
     };
   }, [active]);
 
