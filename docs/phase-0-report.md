@@ -22,10 +22,15 @@ Prepared 7 November 2026 on branch `phase-0-prerequisites`.
 
 ## Baseline scores (before Phase 1)
 
+> **Correction (7 November 2026): the numbers in this table are not valid.** The
+> Lovable preview refused the stylesheet and fonts to the test (401 responses), so
+> Lighthouse measured an unstyled page. The valid before/after comparison is the
+> local side-by-side run in `phase-1-report.md` (mobile performance 63 before,
+> 88 after). The preview cannot be measured reliably; re-run on the published URL.
+
 Measured with Lighthouse 12.8.2 (the engine behind PageSpeed Insights) against the
 Lovable preview, home page, using Lighthouse's default mobile and desktop settings.
 The preview needs a viewer link, so Google's hosted PageSpeed could not reach it.
-Re-run on the published URL once the site is live.
 
 | Measure                  | Mobile  | Desktop | Target      |
 | ------------------------ | ------- | ------- | ----------- |

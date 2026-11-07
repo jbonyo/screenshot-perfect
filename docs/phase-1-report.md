@@ -1,13 +1,16 @@
 # Phase 1 report: foundation (design, accessibility, speed)
 
-Completed 7 November 2026 on branch `phase-1-foundation` (local, not pushed).
+Completed 7 November 2026. Merged into `main` and pushed to GitHub (`cde9a98`);
+Lovable synced the same commit and the preview shows Phase 1 correctly.
 Screenshots: `../phase-1/` (outside the repo).
 
 ## Scores, before and after
 
 Lighthouse 12.8.2, home page, default mobile and desktop settings. Both builds were
 run locally side by side with compression switched on, so the comparison is fair.
-Hosted numbers will differ; re-run on the published URL.
+The Lovable preview cannot be measured: it refuses the stylesheet, fonts and some
+scripts to the test tool (401), so Lighthouse sees an unstyled page. That also
+invalidated the Phase 0 baseline. Re-run on the published URL.
 
 | Measure                  | Before (main), mobile | After, mobile | Before, desktop | After, desktop |
 | ------------------------ | --------------------- | ------------- | --------------- | -------------- |
