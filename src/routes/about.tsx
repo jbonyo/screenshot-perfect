@@ -8,9 +8,17 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About Apexon — The Accountable Engineering Team" },
-      { name: "description", content: "Apexon Global Technologies is a Kenyan technology solutions company delivering networking, IT infrastructure, and AV systems with engineering discipline." },
+      {
+        name: "description",
+        content:
+          "Apexon Global Technologies is a Kenyan technology solutions company delivering networking, IT infrastructure, and AV systems with engineering discipline.",
+      },
       { property: "og:title", content: "About Apexon Global Technologies" },
-      { property: "og:description", content: "The accountable engineering team behind dependable networks and AV systems in Kenya." },
+      {
+        property: "og:description",
+        content:
+          "The accountable engineering team behind dependable networks and AV systems in Kenya.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -21,15 +29,23 @@ export const Route = createFileRoute("/about")({
 function About() {
   return (
     <>
-      <PageHero eyebrow="About Apexon" title={company.positioning + "."} body="A Kenyan technology solutions company focused on doing the infrastructure work properly — and standing behind it." image={images.engineer} />
+      <PageHero
+        eyebrow="About Apexon"
+        title={company.positioning + "."}
+        body="A Kenyan technology solutions company focused on doing the infrastructure work properly — and standing behind it."
+        image={images.engineer}
+      />
       <section className="mx-auto grid max-w-7xl gap-12 px-6 py-24 md:grid-cols-2">
         <Reveal>
           <h2 className="redline text-4xl font-black tracking-tight">Who we are</h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Apexon Global Technologies designs and installs networking, IT infrastructure, and IPTV / audiovisual systems for government institutions, corporate organisations, and technology partners.
+            Apexon Global Technologies designs and installs networking, IT infrastructure, and IPTV
+            / audiovisual systems for government institutions, corporate organisations, and
+            technology partners.
           </p>
           <p className="mt-4 text-lg text-muted-foreground">
-            Our promise is simple: {company.tagline.toLowerCase()} Every job is planned, tested, documented, and handed over with clear responsibility.
+            Our promise is simple: {company.tagline.toLowerCase()} Every job is planned, tested,
+            documented, and handed over with clear responsibility.
           </p>
         </Reveal>
         <Reveal delay={100}>

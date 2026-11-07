@@ -53,15 +53,36 @@ export function HeroCarousel() {
             {active && (
               <div className="mx-auto flex h-full max-w-7xl flex-col justify-center px-6 pb-16">
                 <p className="eyebrow animate-rise">{s.eyebrow}</p>
-                <h1 className="mt-4 max-w-3xl text-5xl font-black leading-[0.95] tracking-tight animate-rise sm:text-6xl md:text-7xl" style={{ animationDelay: "100ms" }}>
+                <h1
+                  className="mt-4 max-w-3xl text-5xl font-black leading-[0.95] tracking-tight animate-rise sm:text-6xl md:text-7xl"
+                  style={{ animationDelay: "100ms" }}
+                >
                   {s.title}
                 </h1>
-                <p className="mt-6 max-w-xl text-lg text-paper/85 animate-rise md:text-xl" style={{ animationDelay: "200ms" }}>{s.body}</p>
-                <div className="mt-8 flex flex-wrap gap-3 animate-rise" style={{ animationDelay: "300ms" }}>
-                  <Link to={s.cta.to} tabIndex={active ? 0 : -1} className="btn btn-primary h-14 px-7 text-base">
+                <p
+                  className="mt-6 max-w-xl text-lg text-paper/85 animate-rise md:text-xl"
+                  style={{ animationDelay: "200ms" }}
+                >
+                  {s.body}
+                </p>
+                <div
+                  className="mt-8 flex flex-wrap gap-3 animate-rise"
+                  style={{ animationDelay: "300ms" }}
+                >
+                  <Link
+                    to={s.cta.to}
+                    tabIndex={active ? 0 : -1}
+                    className="btn btn-primary h-14 px-7 text-base"
+                  >
                     {s.cta.label} <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link to="/services" tabIndex={active ? 0 : -1} className="btn btn-outline-light h-14 px-7 text-base">Our Services</Link>
+                  <Link
+                    to="/services"
+                    tabIndex={active ? 0 : -1}
+                    className="btn btn-outline-light h-14 px-7 text-base"
+                  >
+                    Our Services
+                  </Link>
                 </div>
               </div>
             )}
@@ -80,15 +101,27 @@ export function HeroCarousel() {
               aria-current={idx === i}
               className="group flex h-11 items-center"
             >
-              <span className={`block h-1 rounded-full transition-all ${idx === i ? "w-12 bg-primary" : "w-6 bg-paper/40 group-hover:bg-paper"}`} />
+              <span
+                className={`block h-1 rounded-full transition-all ${idx === i ? "w-12 bg-primary" : "w-6 bg-paper/40 group-hover:bg-paper"}`}
+              />
             </button>
           ))}
         </div>
         <div className="flex gap-2">
-          <button type="button" onClick={() => go(-1)} aria-label="Previous slide" className="grid h-12 w-12 place-items-center rounded-md border-2 border-paper/50 hover:bg-paper hover:text-ink">
+          <button
+            type="button"
+            onClick={() => go(-1)}
+            aria-label="Previous slide"
+            className="grid h-12 w-12 place-items-center rounded-md border-2 border-paper/50 hover:bg-paper hover:text-ink"
+          >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <button type="button" onClick={() => go(1)} aria-label="Next slide" className="grid h-12 w-12 place-items-center rounded-md border-2 border-paper/50 hover:bg-paper hover:text-ink">
+          <button
+            type="button"
+            onClick={() => go(1)}
+            aria-label="Next slide"
+            className="grid h-12 w-12 place-items-center rounded-md border-2 border-paper/50 hover:bg-paper hover:text-ink"
+          >
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>

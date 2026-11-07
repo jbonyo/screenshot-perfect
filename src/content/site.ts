@@ -30,15 +30,27 @@ export const contact: {
   phone: { value: "+254 759 551 005", href: "tel:+254759551005", confirmed: true },
   whatsapp: { value: "+254 759 551 005", href: "https://wa.me/254759551005", confirmed: true },
   email: { value: "apexontech2@gmail.com", href: "mailto:apexontech2@gmail.com", confirmed: true },
-  location: { value: "Nairobi, Kenya (address to be confirmed)", href: "/contact", confirmed: false },
+  location: {
+    value: "Nairobi, Kenya (address to be confirmed)",
+    href: "/contact",
+    confirmed: false,
+  },
   hours: { value: "Business hours to be confirmed", href: "/contact", confirmed: false },
 };
 
-export type Social = { name: "LinkedIn" | "X" | "Facebook" | "Instagram" | "TikTok"; href: string; confirmed: boolean };
+export type Social = {
+  name: "LinkedIn" | "X" | "Facebook" | "Instagram" | "TikTok";
+  href: string;
+  confirmed: boolean;
+};
 // Add verified profile URLs and set confirmed: true. Unconfirmed links are not shown.
 export const socials: Social[] = [
   { name: "Instagram", href: "https://www.instagram.com/apexon.global", confirmed: true },
-  { name: "Facebook", href: "https://www.facebook.com/search/top?q=Apexon%20Global%20Technologies", confirmed: true },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/search/top?q=Apexon%20Global%20Technologies",
+    confirmed: true,
+  },
   { name: "TikTok", href: "https://www.tiktok.com/@apexon.global", confirmed: true },
   { name: "X", href: "https://x.com/ApexonTech", confirmed: true },
 ];
@@ -104,8 +116,13 @@ export const services = [
   {
     slug: "networking",
     title: "Networking & Structured Cabling",
-    short: "Copper and fibre cabling, racks, and patching — designed, installed, labelled, and tested.",
-    points: ["Cabling design & installation", "Rack & cabinet build-outs", "Labelling and test reports"],
+    short:
+      "Copper and fibre cabling, racks, and patching — designed, installed, labelled, and tested.",
+    points: [
+      "Cabling design & installation",
+      "Rack & cabinet build-outs",
+      "Labelling and test reports",
+    ],
     image: rack,
     alt: "Structured cabling in a network rack (illustrative stock image)",
   },
@@ -113,7 +130,11 @@ export const services = [
     slug: "infrastructure",
     title: "IT Infrastructure",
     short: "Servers, switching, and Wi-Fi that support daily operations without drama.",
-    points: ["Server & switching setup", "Enterprise Wi-Fi coverage", "Infrastructure documentation"],
+    points: [
+      "Server & switching setup",
+      "Enterprise Wi-Fi coverage",
+      "Infrastructure documentation",
+    ],
     image: wifi,
     alt: "Ceiling-mounted Wi-Fi access point in an office (illustrative stock image)",
   },
@@ -129,21 +150,40 @@ export const services = [
 
 // Set to true and fill `testimonials` once genuine, approved reviews exist.
 export const showTestimonials = false;
-export const testimonials: { quote: string; name: string; role: string; organisation: string }[] = [];
+export const testimonials: { quote: string; name: string; role: string; organisation: string }[] =
+  [];
 
 export const principles = [
   { title: "Thorough testing", body: "Every link and system is tested before we call it done." },
-  { title: "Clear documentation", body: "Labelling, layouts, and records you can actually use later." },
-  { title: "Accountable delivery", body: "One team, clear responsibility, from survey to sign-off." },
-  { title: "Professional handover", body: "A walkthrough and a documented handover — not just a closed ticket." },
+  {
+    title: "Clear documentation",
+    body: "Labelling, layouts, and records you can actually use later.",
+  },
+  {
+    title: "Accountable delivery",
+    body: "One team, clear responsibility, from survey to sign-off.",
+  },
+  {
+    title: "Professional handover",
+    body: "A walkthrough and a documented handover — not just a closed ticket.",
+  },
 ];
 
 export const process = ["Assess", "Design", "Supply", "Install", "Test", "Hand over"];
 
 export const audiences = [
-  { title: "Government institutions", body: "Infrastructure delivered with documentation suitable for procurement and audit." },
-  { title: "Corporate organisations", body: "Dependable networks and meeting spaces that keep work moving." },
-  { title: "Technology partners", body: "A disciplined installation team to deliver alongside your solution." },
+  {
+    title: "Government institutions",
+    body: "Infrastructure delivered with documentation suitable for procurement and audit.",
+  },
+  {
+    title: "Corporate organisations",
+    body: "Dependable networks and meeting spaces that keep work moving.",
+  },
+  {
+    title: "Technology partners",
+    body: "A disciplined installation team to deliver alongside your solution.",
+  },
 ];
 
 export const gallery = [
