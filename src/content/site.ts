@@ -93,10 +93,18 @@ export const nav = [
 
 // Pages outside the main navigation, linked from the footer and listed in the sitemap.
 export const secondaryPages = [
-  { label: "Support request", to: "/support" as const },
-  { label: "Privacy Policy", to: "/privacy" as const },
-  { label: "Terms", to: "/terms" as const },
-];
+  { label: "Support request", to: "/support" as const, group: "company" },
+  { label: "FAQ", to: "/faq" as const, group: "company" },
+  { label: "Partners", to: "/partners" as const, group: "company" },
+  { label: "Handover pack", to: "/handover" as const, group: "tenders" },
+  { label: "Compliance & documents", to: "/compliance" as const, group: "tenders" },
+  { label: "Capability statement", to: "/capability-statement" as const, group: "tenders" },
+  { label: "Privacy Policy", to: "/privacy" as const, group: "legal" },
+  { label: "Terms", to: "/terms" as const, group: "legal" },
+] as const;
+
+export const pagesInGroup = (group: (typeof secondaryPages)[number]["group"]) =>
+  secondaryPages.filter((p) => p.group === group);
 
 // Where the quote and support forms send enquiries (see supabase/README.md).
 export const enquiryEndpoint =
@@ -324,6 +332,40 @@ export const companyDocuments = [
   "County business permit",
   "e-GP supplier registration",
 ] as const;
+
+export const partnersWeWorkWith = [
+  "Main contractors",
+  "Technology vendors and distributors",
+  "Specialist subcontractors",
+  "Consultants and system integrators",
+];
+
+// Files in public/downloads. Samples use made-up data and are marked SAMPLE.
+export const downloads = {
+  capabilityStatement: "/downloads/apexon-capability-statement.pdf",
+  samples: [
+    {
+      title: "Cable test report",
+      file: "/downloads/sample-cable-test-report.pdf",
+      body: "Results for every link, with pass or fail, length and the date tested.",
+    },
+    {
+      title: "Labelling scheme",
+      file: "/downloads/sample-labelling-scheme.pdf",
+      body: "How every rack, panel, port and outlet is named, so anyone can trace a cable.",
+    },
+    {
+      title: "As-built drawing",
+      file: "/downloads/sample-as-built-drawing.pdf",
+      body: "A floor plan showing outlet positions, cable routes and the rack location as installed.",
+    },
+    {
+      title: "Handover checklist",
+      file: "/downloads/sample-handover-checklist.pdf",
+      body: "The items we check and sign off with you before the job is closed.",
+    },
+  ],
+};
 
 export const partnerTypes = [
   "Main contractor",

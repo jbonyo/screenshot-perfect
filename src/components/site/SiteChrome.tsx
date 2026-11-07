@@ -21,7 +21,7 @@ import {
   contact,
   cta,
   nav,
-  secondaryPages,
+  pagesInGroup,
   services,
   socials,
   whatsappLink,
@@ -129,7 +129,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <div className="surface-red hidden bg-brand text-sm text-primary-foreground md:block">
+      <div className="surface-red hidden bg-brand text-sm text-primary-foreground md:block print:hidden">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-1 [&_.text-primary]:text-primary-foreground">
           <ContactLinks compact />
           <div className="[&_a:hover]:text-primary-foreground/80">
@@ -137,7 +137,7 @@ export function SiteHeader() {
           </div>
         </div>
       </div>
-      <header className="surface-dark sticky top-0 z-40 border-b border-ink-line bg-ink/95 text-paper backdrop-blur">
+      <header className="surface-dark sticky top-0 z-40 border-b border-ink-line bg-ink/95 text-paper backdrop-blur print:hidden">
         <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-3 md:px-6">
           <Link to="/" aria-label="Apexon Global Technologies, home" className="min-w-0">
             <Logo className="w-36 md:w-48" />
@@ -230,8 +230,8 @@ export function SiteHeader() {
                   {services.map((s) => (
                     <li key={s.slug}>
                       <Link
-                        to="/services"
-                        hash={s.slug}
+                        to="/services/$slug"
+                        params={{ slug: s.slug }}
                         onClick={close}
                         className="inline-flex min-h-10 items-center text-lg hover:text-primary"
                       >
@@ -265,7 +265,7 @@ export function MobileActionBar() {
   return (
     <nav
       aria-label="Quick contact"
-      className="surface-dark fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-ink-line bg-ink text-paper md:hidden"
+      className="surface-dark fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-ink-line bg-ink text-paper md:hidden print:hidden"
     >
       {items.map(({ label, icon: Icon, href, event }) => (
         <a
@@ -320,8 +320,8 @@ export function QuoteBand() {
 
 export function SiteFooter() {
   return (
-    <footer className="surface-dark bg-ink pb-20 text-paper md:pb-0">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-14 md:grid-cols-4 md:py-16">
+    <footer className="surface-dark bg-ink pb-20 text-paper md:pb-0 print:hidden">
+      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 sm:grid-cols-2 md:py-16 lg:grid-cols-5">
         <div>
           <Logo className="w-48" />
           <p className="mt-6 text-paper-muted">{company.tagline}</p>
@@ -335,8 +335,8 @@ export function SiteFooter() {
             {services.map((s) => (
               <li key={s.slug}>
                 <Link
-                  to="/services"
-                  hash={s.slug}
+                  to="/services/$slug"
+                  params={{ slug: s.slug }}
                   className="inline-flex min-h-10 items-center hover:text-primary"
                 >
                   {s.title}
@@ -348,7 +348,19 @@ export function SiteFooter() {
         <div>
           <h2 className="eyebrow mb-4">Company</h2>
           <ul className="text-paper/80">
-            {[...nav, secondaryPages[0]!].map((n) => (
+            {[...nav, ...pagesInGroup("company")].map((n) => (
+              <li key={n.to}>
+                <Link to={n.to} className="inline-flex min-h-10 items-center hover:text-primary">
+                  {n.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 className="eyebrow mb-4">For tenders</h2>
+          <ul className="text-paper/80">
+            {pagesInGroup("tenders").map((n) => (
               <li key={n.to}>
                 <Link to={n.to} className="inline-flex min-h-10 items-center hover:text-primary">
                   {n.label}
@@ -380,7 +392,7 @@ export function SiteFooter() {
             © {new Date().getFullYear()} {company.name}. All rights reserved.
           </p>
           <p className="flex flex-wrap items-center gap-x-1">
-            {secondaryPages.slice(1).map((p) => (
+            {pagesInGroup("legal").map((p) => (
               <span key={p.to}>
                 <Link
                   to={p.to}

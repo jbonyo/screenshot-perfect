@@ -34,8 +34,8 @@ export function ServiceCards() {
               <p className="mt-3 text-muted-foreground">{s.short}</p>
               <div className="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-6 text-sm font-bold">
                 <Link
-                  to="/services"
-                  hash={s.slug}
+                  to="/services/$slug"
+                  params={{ slug: s.slug }}
                   className="inline-flex min-h-11 items-center gap-1 hover:text-primary"
                 >
                   Explore <span className="sr-only">{s.title}</span>

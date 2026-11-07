@@ -7,7 +7,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { images, services, whatsappLink } from "@/content/site";
 import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/services")({
+export const Route = createFileRoute("/services/")({
   head: () =>
     pageHead({
       title: "Services | Networking, IT Infrastructure, IPTV & AV, Maintenance | Apexon",
@@ -60,6 +60,13 @@ function Services() {
                 ))}
               </ul>
               <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  to="/services/$slug"
+                  params={{ slug: s.slug }}
+                  className="btn btn-outline-dark"
+                >
+                  Full details <span className="sr-only">: {s.title}</span>
+                </Link>
                 <Link
                   to="/contact"
                   search={{ service: s.slug as ServiceChoice }}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SAMPLE As-built drawing | Apexon Global Technologies</title>
+    <link rel="stylesheet" href="sample.css" />
+    <style>
+      @page {
+        size: A4 landscape;
+      }
+      svg text {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="watermark">SAMPLE</div>
+    <div class="banner">SAMPLE DOCUMENT: the floor plan is made up to show the format.</div>
+    <header>
+      <div class="brand">APEXON<small>GLOBAL TECHNOLOGIES</small></div>
+      <h1>As-Built Drawing: Floor 2 Data Cabling</h1>
+    </header>
+    <div class="meta">
+      <div><span>Site:</span> Example Office, Floor 2, Nairobi (fictional)</div>
+      <div><span>Drawing no.:</span> SAMPLE-AB-F2-001 · Not to scale</div>
+    </div>
+
+    <svg viewBox="0 0 1000 460" width="100%" role="img" aria-label="Sample floor plan with outlets, cable routes and rack">
+      <!-- Walls -->
+      <rect x="10" y="10" width="980" height="440" fill="none" stroke="#0e0e0e" stroke-width="4" />
+      <line x1="10" y1="170" x2="420" y2="170" stroke="#0e0e0e" stroke-width="2" />
+      <line x1="210" y1="10" x2="210" y2="170" stroke="#0e0e0e" stroke-width="2" />
+      <line x1="420" y1="10" x2="420" y2="300" stroke="#0e0e0e" stroke-width="2" />
+      <line x1="420" y1="300" x2="620" y2="300" stroke="#0e0e0e" stroke-width="2" />
+      <line x1="620" y1="300" x2="620" y2="450" stroke="#0e0e0e" stroke-width="2" />
+      <!-- Room names -->
+      <g font-size="15" fill="#555">
+        <text x="40" y="40">Office 2.01</text>
+        <text x="240" y="40">Office 2.02</text>
+        <text x="450" y="40">Meeting room 2.03</text>
+        <text x="40" y="200">Reception</text>
+        <text x="650" y="330">Comms room</text>
+        <text x="700" y="40">Open office</text>
+      </g>
+      <!-- Cable tray route -->
+      <path d="M 820 380 L 820 230 L 100 230 L 100 262 M 820 230 L 820 120 L 940 120 L 940 142 M 300 230 L 300 120 M 520 230 L 520 120 M 120 230 L 120 120"
+        fill="none" stroke="#ac1922" stroke-width="3" stroke-dasharray="10 6" />
+      <!-- Rack -->
+      <rect x="790" y="370" width="60" height="50" fill="#0e0e0e" />
+      <text x="760" y="440" font-size="13" font-weight="bold">F2-R01 (rack)</text>
+      <!-- Outlets -->
+      <g font-size="11">
+        <circle cx="120" cy="110" r="8" fill="#ac1922" /><text x="70" y="95">P1-03/04</text>
+        <circle cx="300" cy="110" r="8" fill="#ac1922" /><text x="255" y="95">P1-05/06</text>
+        <circle cx="520" cy="110" r="8" fill="#ac1922" /><text x="470" y="95">P1-07/08</text>
+        <circle cx="100" cy="270" r="8" fill="#ac1922" /><text x="60" y="295">P1-01/02</text>
+        <circle cx="900" cy="110" r="8" fill="#ac1922" /><text x="860" y="95">P1-09</text>
+        <circle cx="940" cy="150" r="8" fill="#ac1922" /><text x="900" y="175">P1-10</text>
+        <rect x="602" y="222" width="16" height="16" fill="#0e0e0e" /><text x="575" y="260">AP-F2-01</text>
+        <rect x="282" y="222" width="16" height="16" fill="#0e0e0e" /><text x="255" y="260">AP-F2-02</text>
+      </g>
+    </svg>
+
+    <table style="margin-top: 10px">
+      <thead>
+        <tr><th>Symbol</th><th>Meaning</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="color: #ac1922">● red dot</td><td>Data outlet, labelled with its patch-panel ports</td></tr>
+        <tr><td>■ black square</td><td>Ceiling Wi-Fi access point</td></tr>
+        <tr><td style="color: #ac1922">- - - red dashed line</td><td>Cable tray or trunking route as installed</td></tr>
+      </tbody>
+    </table>
+  </body>
+</html>

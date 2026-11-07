@@ -1,0 +1,125 @@
+/* Shared styles for the sample handover documents (A4, printed by Chrome). */
+@page {
+  size: A4;
+  margin: 16mm 14mm;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #0e0e0e;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  margin: 0;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 3px solid #ac1922;
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+.brand {
+  font-weight: 900;
+  font-size: 18pt;
+  letter-spacing: 0.04em;
+}
+.brand small {
+  display: block;
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: #555;
+}
+h1 {
+  font-size: 15pt;
+  margin: 0;
+  text-align: right;
+}
+h2 {
+  font-size: 11.5pt;
+  margin: 18px 0 6px;
+  color: #ac1922;
+}
+.meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 24px;
+  margin: 0 0 10px;
+}
+.meta div span {
+  color: #555;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+}
+th,
+td {
+  border: 1px solid #c9c4b8;
+  padding: 5px 7px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: #f4f1ea;
+}
+.pass {
+  color: #1d6b2a;
+  font-weight: 700;
+}
+.box {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid #0e0e0e;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.box.done::after {
+  content: "\2713";
+  font-size: 10px;
+  line-height: 10px;
+  display: block;
+  text-align: center;
+}
+.sign {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 22px;
+}
+.sign div {
+  border-top: 1px solid #0e0e0e;
+  padding-top: 4px;
+  color: #555;
+}
+.note {
+  font-size: 8.5pt;
+  color: #555;
+  margin-top: 14px;
+}
+/* Diagonal SAMPLE mark on every page. */
+.watermark {
+  position: fixed;
+  top: 40%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  transform: rotate(-30deg);
+  font-size: 110pt;
+  font-weight: 900;
+  color: rgba(172, 25, 34, 0.09);
+  z-index: -1;
+}
+.banner {
+  background: #ac1922;
+  color: #fff;
+  font-weight: 700;
+  font-size: 9pt;
+  padding: 5px 8px;
+  margin-bottom: 12px;
+}

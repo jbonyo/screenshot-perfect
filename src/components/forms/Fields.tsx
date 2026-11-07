@@ -189,6 +189,54 @@ export function ChoiceGroup<T extends string>({
   );
 }
 
+// Several checkboxes in one labelled group, for multi-choice questions.
+export function CheckboxGroup<T extends string>({
+  name,
+  legend,
+  options,
+  values,
+  onChange,
+  error,
+}: {
+  name: string;
+  legend: string;
+  options: readonly T[];
+  values: T[];
+  onChange: (v: T[]) => void;
+  error?: string | undefined;
+}) {
+  const toggle = (o: T) =>
+    onChange(values.includes(o) ? values.filter((v) => v !== o) : [...values, o]);
+  return (
+    <fieldset aria-describedby={error ? `${name}-error` : undefined}>
+      <legend className="font-semibold">{legend}</legend>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        {options.map((o) => (
+          <label
+            key={o}
+            className="flex min-h-12 cursor-pointer items-center gap-3 rounded-md border bg-card px-4 py-3 has-[:checked]:border-brand has-[:checked]:bg-brand/5"
+          >
+            <input
+              type="checkbox"
+              name={name}
+              value={o}
+              checked={values.includes(o)}
+              onChange={() => toggle(o)}
+              className="h-5 w-5 shrink-0 accent-[var(--brand-deep)]"
+            />
+            {o}
+          </label>
+        ))}
+      </div>
+      {error && (
+        <p id={`${name}-error`} className="mt-2 text-sm font-semibold text-brand">
+          {error}
+        </p>
+      )}
+    </fieldset>
+  );
+}
+
 export function Checkbox({
   id,
   checked,
