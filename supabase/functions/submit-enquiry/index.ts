@@ -1,5 +1,5 @@
-// Receives quote and support requests from the website, checks them, stores them
-// in public.enquiries and emails them to Apexon via Resend.
+// Receives quote, support, document and partner requests from the website, checks
+// them, stores them in public.enquiries and emails them to Apexon via Resend.
 //
 // Public endpoint (no login), so it protects itself: field validation, a hidden
 // honeypot field, a minimum fill time, and at most RATE_LIMIT submissions per
@@ -77,10 +77,42 @@ const support = z.object({
   location: text(120).min(2, "Please enter the site location."),
 });
 
-const schema = z.discriminatedUnion("kind", [quote, support]).refine((d) => d.email || d.phone, {
-  message: "Please give an email address or a phone number.",
-  path: ["email"],
+// Keep in step with `companyDocuments` in src/content/site.ts.
+const documentNames = [
+  "Certificate of incorporation",
+  "KRA PIN certificate",
+  "Tax compliance certificate",
+  "CR-12",
+  "County business permit",
+  "e-GP supplier registration",
+] as const;
+
+const documents = z.object({
+  kind: z.literal("documents"),
+  documents: z
+    .array(z.enum(documentNames))
+    .min(1, "Please choose at least one document.")
+    .max(documentNames.length),
+  tenderReference: optionalText(160),
+  details: optionalText(4000),
+  ...contact,
+  organisation: text(160).min(2, "Please enter your organisation."),
 });
+
+const partner = z.object({
+  kind: z.literal("partner"),
+  partnerType: text(80).min(2, "Please choose what kind of partner you are."),
+  details: text(4000).min(10, "Please tell us briefly how you would like to work together."),
+  ...contact,
+  organisation: text(160).min(2, "Please enter your organisation."),
+});
+
+const schema = z
+  .discriminatedUnion("kind", [quote, support, documents, partner])
+  .refine((d) => d.email || d.phone, {
+    message: "Please give an email address or a phone number.",
+    path: ["email"],
+  });
 
 type Enquiry = z.infer<typeof schema>;
 
@@ -110,11 +142,23 @@ function emailBody(e: Enquiry): { subject: string; text: string } {
           ["Location", e.location],
           ["Details", e.details],
         ]
-      : [
-          ["Urgency", e.urgency],
-          ["Location", e.location],
-          ["Fault", e.details],
-        ];
+      : e.kind === "support"
+        ? [
+            ["Urgency", e.urgency],
+            ["Location", e.location],
+            ["Fault", e.details],
+          ]
+        : e.kind === "documents"
+          ? [
+              ["Documents requested", e.documents.join(", ")],
+              ["Tender or reference", e.tenderReference],
+              ["Notes", e.details],
+            ]
+          : [
+              ["Partner type", e.partnerType],
+              ["Location", e.location],
+              ["Proposal", e.details],
+            ];
   const who: [string, unknown][] = [
     ["Name", e.name],
     ["Organisation", e.organisation],
@@ -130,7 +174,11 @@ function emailBody(e: Enquiry): { subject: string; text: string } {
   const subject =
     e.kind === "quote"
       ? `New quote request: ${e.service} (${e.name})`
-      : `Support request [${e.urgency.toUpperCase()}]: ${e.name}`;
+      : e.kind === "support"
+        ? `Support request [${e.urgency.toUpperCase()}]: ${e.name}`
+        : e.kind === "documents"
+          ? `Document request: ${e.organisation} (${e.name})`
+          : `Partner enquiry: ${e.organisation} (${e.partnerType})`;
   return { subject, text: `${fmt(lines)}\n\n${fmt(who)}\n\nSent from the Apexon website.` };
 }
 
@@ -239,7 +287,11 @@ Deno.serve(async (req) => {
           floors_or_screens: e.floorsOrScreens,
           timeline: e.timeline,
         }
-      : { urgency: e.urgency }),
+      : e.kind === "support"
+        ? { urgency: e.urgency }
+        : e.kind === "documents"
+          ? { documents: e.documents, tender_reference: e.tenderReference }
+          : { partner_type: e.partnerType }),
   };
 
   const { data: inserted, error: insertError } = await db

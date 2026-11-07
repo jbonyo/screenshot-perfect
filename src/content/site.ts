@@ -276,8 +276,257 @@ export const gallery = [
   { src: images.technician, alt: "Technician working on cabling in a network rack" },
   { src: images.trainingRoom, alt: "Training room with a large wall display" },
   { src: images.cabletray, alt: "Cable tray along a corridor ceiling" },
-  { src: images.testing, alt: "Cable certification testing" },
+  { src: images.testing, alt: "Network cable testing" },
   { src: images.iptv, alt: "Lobby video wall" },
   { src: images.wifi, alt: "Office Wi-Fi access point" },
   { src: images.fibrePanel, alt: "Fibre patch panel in a rack" },
+];
+
+// ---------------------------------------------------------------------------
+// Phase 3: service detail, trust and compliance content. Owner answers,
+// 7 November 2026. Only state what Apexon can prove; see docs/phase-3-brief.md.
+// ---------------------------------------------------------------------------
+
+export const team = {
+  summary:
+    "A core team of two electrical engineers and a telecommunications specialist, led by a founder with a data science background. Further specialists are engaged per project.",
+  members: [
+    { role: "Electrical engineers", count: 2 },
+    { role: "Telecommunications specialist", count: 1 },
+    { role: "Founder, data science", count: 1 },
+  ],
+};
+
+export const serviceArea = "Based in Nairobi. We work anywhere in Kenya by arrangement.";
+
+export const projectScope =
+  "From small technical fixes to large institutional projects, scoped to what we can deliver well and supported by specialist partners where needed.";
+
+// Testing wording stays general until test standards and equipment are confirmed.
+// Set to true only once cable certification to a named standard can be delivered.
+export const certificationTesting = false;
+
+export const maintenanceTerms =
+  "Visit schedules and fault response times are agreed with each client and written into the maintenance agreement.";
+
+// Kenya Electronic Government Procurement (e-GP) supplier registration.
+export const egpRegistration = {
+  label: "Registered supplier on Kenya’s Electronic Government Procurement (e-GP) system",
+  number: "SR/eGP/2025/52816",
+};
+
+// Documents Apexon can share on request (no badges or certifications not held).
+export const companyDocuments = [
+  "Certificate of incorporation",
+  "KRA PIN certificate",
+  "Tax compliance certificate",
+  "CR-12",
+  "County business permit",
+  "e-GP supplier registration",
+] as const;
+
+export const partnerTypes = [
+  "Main contractor",
+  "Technology vendor or distributor",
+  "Specialist subcontractor",
+  "Consultant or system integrator",
+  "Other",
+] as const;
+
+type ServiceDetail = {
+  problem: string;
+  supply: string[];
+  process: string[];
+  testing: string;
+  receive: string[];
+  faqs: { q: string; a: string }[];
+};
+
+// Detail pages at /services/<slug>. Keys match `services[].slug`.
+export const serviceDetails: Record<string, ServiceDetail> = {
+  networking: {
+    problem:
+      "Unreliable connections, untraceable cables and no records make every change slow, risky and expensive.",
+    supply: [
+      "Copper (Cat6 and Cat6A) and fibre-optic cabling",
+      "Racks, cabinets and patch panels",
+      "Cable containment: trunking, trays and conduits",
+      "Outlets, faceplates and patch leads",
+      "Labelling of every port, cable and panel",
+    ],
+    process: [
+      "Survey the site and agree requirements",
+      "Design outlet positions, cable routes and rack layouts",
+      "Supply materials to the agreed specification",
+      "Install neatly, with containment and labelling",
+      "Test every link before handover",
+      "Hand over with records and a walkthrough",
+    ],
+    testing:
+      "Every copper and fibre link is tested before handover, and the results are recorded in your handover pack.",
+    receive: [
+      "Test results for every link",
+      "Labelling scheme",
+      "As-built drawings",
+      "Walkthrough and sign-off",
+    ],
+    faqs: [
+      {
+        q: "Do you install fibre as well as copper?",
+        a: "Yes. We install both, and recommend the right mix for distances, speeds and budget.",
+      },
+      {
+        q: "Can you take over an existing, untidy network?",
+        a: "Yes. We survey and document what is there, tidy and relabel it, and give you records you can use.",
+      },
+      {
+        q: "Can you work while our offices are open?",
+        a: "Usually, yes. We plan disruptive work around your hours where possible and agree this before we start.",
+      },
+    ],
+  },
+  infrastructure: {
+    problem:
+      "Slow, patchy Wi-Fi and poorly set-up switching and servers interrupt daily work and are hard to fix without records.",
+    supply: [
+      "Network switches and routers",
+      "Enterprise Wi-Fi access points and controllers",
+      "Server and storage set-up",
+      "Power protection for network equipment (UPS)",
+      "Configuration records and network diagrams",
+    ],
+    process: [
+      "Survey coverage, users and existing equipment",
+      "Design the network and Wi-Fi layout",
+      "Supply recommended equipment, or install hardware you already have",
+      "Install and configure",
+      "Test connectivity and coverage",
+      "Hand over with configuration records",
+    ],
+    testing:
+      "We check connectivity and Wi-Fi coverage across the agreed areas before handover and record the results.",
+    receive: [
+      "Network diagram",
+      "Configuration and access records",
+      "Coverage and connectivity check results",
+      "Walkthrough and sign-off",
+    ],
+    faqs: [
+      {
+        q: "Do you supply equipment, or only install it?",
+        a: "Both. We can recommend and supply equipment, or install and configure hardware you have bought.",
+      },
+      {
+        q: "Are you tied to one brand?",
+        a: "No. We recommend equipment to suit your needs and budget.",
+      },
+      {
+        q: "Can you fix Wi-Fi that already exists?",
+        a: "Yes. We assess the current set-up, find the weak spots and recommend changes.",
+      },
+    ],
+  },
+  "iptv-av": {
+    problem:
+      "Screens that will not connect, poor sound in meeting rooms and channel distribution that keeps failing waste time and frustrate guests and staff.",
+    supply: [
+      "IPTV and TV distribution systems",
+      "Displays, video walls and digital signage",
+      "Meeting and training room audio and video",
+      "Cabling, mounting and control for AV equipment",
+    ],
+    process: [
+      "Survey rooms, screens and existing signals",
+      "Design the system and agree equipment",
+      "Supply to the agreed specification",
+      "Install, mount and connect",
+      "Test every screen, source and room",
+      "Hand over with user guides and a walkthrough",
+    ],
+    testing: "Every screen, channel and room system is tested with your staff before handover.",
+    receive: [
+      "System layout and equipment list",
+      "Simple user guides for staff",
+      "Test checklist for every room and screen",
+      "Walkthrough and sign-off",
+    ],
+    faqs: [
+      {
+        q: "Which buildings is IPTV suited to?",
+        a: "Hotels, hospitals, campuses, offices and any building that distributes TV or information to many screens.",
+      },
+      {
+        q: "Which brands do you use?",
+        a: "We are not tied to one brand. We recommend equipment to suit the room, the use and the budget.",
+      },
+      {
+        q: "Will our staff be shown how to use it?",
+        a: "Yes. Handover includes a walkthrough and simple user guides.",
+      },
+    ],
+  },
+  maintenance: {
+    problem:
+      "Systems that are installed and then forgotten fail at the worst time, and faults take longer to fix without records.",
+    supply: [
+      "Preventive maintenance visits",
+      "Fault diagnosis and repair",
+      "Support for systems we installed and for existing installations",
+      "Updates to labelling and records as systems change",
+    ],
+    process: [
+      "Survey and document the current systems",
+      "Agree a maintenance schedule and response times",
+      "Carry out planned visits",
+      "Respond to faults as agreed",
+      "Report what was found and fixed",
+    ],
+    testing: "Each visit includes checks on the agreed systems, with findings reported to you.",
+    receive: [
+      "A written maintenance agreement",
+      "Visit and fault reports",
+      "Updated records and labelling",
+    ],
+    faqs: [
+      {
+        q: "How quickly do you respond to faults?",
+        a: "Response times are agreed with each client and written into the maintenance agreement.",
+      },
+      {
+        q: "Do you support systems installed by someone else?",
+        a: "Yes. We start with a survey so we understand and document the existing set-up.",
+      },
+      {
+        q: "How often are visits?",
+        a: "Visit frequency is agreed with each client to suit the systems and how critical they are.",
+      },
+    ],
+  },
+};
+
+// Site-wide FAQ at /faq.
+export const faqs = [
+  {
+    q: "How do I request a quote?",
+    a: "Use the quote form, call or WhatsApp us. Tell us about the site and what you need, and we reply within one business day.",
+  },
+  {
+    q: "Are site surveys free?",
+    a: "Yes. Requesting a survey or a quote does not commit you to anything.",
+  },
+  { q: "Where do you work?", a: serviceArea },
+  { q: "What size of project do you take on?", a: projectScope },
+  {
+    q: "What documentation do we get at the end?",
+    a: "Every handover includes test results, a labelling scheme, as-built drawings, a walkthrough and a documented sign-off.",
+  },
+  {
+    q: "Can you provide company documents for a tender?",
+    a: "Yes. Our registration and compliance documents are available on request from the Compliance page.",
+  },
+  { q: "Do you offer maintenance agreements?", a: maintenanceTerms },
+  {
+    q: "Do you work with other contractors?",
+    a: "Yes. We work alongside main contractors, technology vendors and integrators. Use the partners form to get in touch.",
+  },
 ];
