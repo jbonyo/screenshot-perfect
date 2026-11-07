@@ -16,7 +16,17 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { Photo } from "@/components/site/Photo";
-import { company, contact, cta, nav, services, socials, type Social } from "@/content/site";
+import {
+  company,
+  contact,
+  cta,
+  nav,
+  secondaryPages,
+  services,
+  socials,
+  whatsappLink,
+  type Social,
+} from "@/content/site";
 import { useFocusTrap } from "@/hooks/use-focus-trap";
 import type { Photo as PhotoData } from "@/lib/photos";
 
@@ -47,16 +57,24 @@ export function ContactLinks({
   compact?: boolean;
 }) {
   const items = [
-    { icon: Phone, label: "Call", ...contact.phone },
-    { icon: MessageCircle, label: "WhatsApp", ...contact.whatsapp },
-    { icon: Mail, label: "Email", ...contact.email },
+    { icon: Phone, label: "Call", event: "call_click", ...contact.phone },
+    {
+      icon: MessageCircle,
+      label: "WhatsApp",
+      event: "whatsapp_click",
+      ...contact.whatsapp,
+      href: whatsappLink(),
+    },
+    { icon: Mail, label: "Email", event: "email_click", ...contact.email },
   ];
   return (
     <ul className={compact ? "flex flex-wrap items-center gap-x-6 gap-y-1" : "space-y-1"}>
-      {items.map(({ icon: Icon, label, value, href, confirmed }) => (
+      {items.map(({ icon: Icon, label, event, value, href, confirmed }) => (
         <li key={label}>
           <a
             href={href}
+            data-umami-event={event}
+            {...(href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
             className="group inline-flex min-h-10 max-w-full flex-wrap items-center gap-x-2 hover:text-primary"
           >
             <Icon className="h-4 w-4 shrink-0 text-primary" aria-hidden />
@@ -144,6 +162,7 @@ export function SiteHeader() {
             </nav>
             <a
               href={contact.phone.href}
+              data-umami-event="call_click"
               className="hidden min-h-12 items-center gap-2 px-2 text-sm font-semibold text-paper/80 hover:text-paper md:inline-flex"
             >
               <Phone className="h-4 w-4" aria-hidden /> {contact.phone.value}
@@ -239,19 +258,21 @@ export function SiteHeader() {
 
 export function MobileActionBar() {
   const items = [
-    { label: "Call", icon: Phone, href: contact.phone.href },
-    { label: "WhatsApp", icon: MessageCircle, href: contact.whatsapp.href },
-    { label: "Email", icon: Mail, href: contact.email.href },
+    { label: "Call", icon: Phone, href: contact.phone.href, event: "call_click" },
+    { label: "WhatsApp", icon: MessageCircle, href: whatsappLink(), event: "whatsapp_click" },
+    { label: "Email", icon: Mail, href: contact.email.href, event: "email_click" },
   ];
   return (
     <nav
       aria-label="Quick contact"
       className="surface-dark fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-ink-line bg-ink text-paper md:hidden"
     >
-      {items.map(({ label, icon: Icon, href }) => (
+      {items.map(({ label, icon: Icon, href, event }) => (
         <a
           key={label}
           href={href}
+          data-umami-event={event}
+          {...(href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
           className="flex min-h-16 flex-col items-center justify-center gap-1 text-xs font-semibold"
         >
           <Icon className="h-5 w-5 text-primary" aria-hidden /> {label}
@@ -284,7 +305,11 @@ export function QuoteBand() {
           <Link to={cta.quote.to} className="btn bg-ink text-paper hover:bg-ink-soft">
             {cta.quote.label} <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
-          <a href={contact.phone.href} className="btn btn-outline-light">
+          <a
+            href={contact.phone.href}
+            className="btn btn-outline-light"
+            data-umami-event="call_click"
+          >
             <Phone className="h-4 w-4" aria-hidden /> Call us
           </a>
         </div>
@@ -323,7 +348,7 @@ export function SiteFooter() {
         <div>
           <h2 className="eyebrow mb-4">Company</h2>
           <ul className="text-paper/80">
-            {nav.map((n) => (
+            {[...nav, secondaryPages[0]!].map((n) => (
               <li key={n.to}>
                 <Link to={n.to} className="inline-flex min-h-10 items-center hover:text-primary">
                   {n.label}
@@ -354,7 +379,20 @@ export function SiteFooter() {
           <p>
             © {new Date().getFullYear()} {company.name}. All rights reserved.
           </p>
-          <p>Privacy Policy and Terms coming soon · Photos are illustrative.</p>
+          <p className="flex flex-wrap items-center gap-x-1">
+            {secondaryPages.slice(1).map((p) => (
+              <span key={p.to}>
+                <Link
+                  to={p.to}
+                  className="inline-flex min-h-10 items-center underline underline-offset-4 hover:text-paper"
+                >
+                  {p.label}
+                </Link>{" "}
+                ·
+              </span>
+            ))}
+            <span>Photos are illustrative.</span>
+          </p>
         </div>
       </div>
     </footer>

@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, MessageCircle } from "lucide-react";
 import { PageHero, QuoteBand } from "@/components/site/SiteChrome";
+import type { ServiceChoice } from "@/components/forms/QuoteWizard";
 import { Photo } from "@/components/site/Photo";
 import { Reveal } from "@/components/site/Reveal";
-import { images, services } from "@/content/site";
+import { images, services, whatsappLink } from "@/content/site";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/services")({
@@ -58,9 +59,37 @@ function Services() {
                   </li>
                 ))}
               </ul>
-              <Link to="/contact" className="btn btn-primary mt-8">
-                Request a Quote <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  to="/contact"
+                  search={{ service: s.slug as ServiceChoice }}
+                  className="btn btn-primary"
+                >
+                  Request a Quote <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+                <a
+                  href={whatsappLink(s.whatsappTopic)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-outline-dark"
+                  data-umami-event="whatsapp_click"
+                  data-umami-event-service={s.slug}
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden /> Chat on WhatsApp
+                </a>
+              </div>
+              {s.slug === "maintenance" && (
+                <p className="mt-4 text-muted-foreground">
+                  Existing client with a fault?{" "}
+                  <Link
+                    to="/support"
+                    className="font-semibold text-primary underline underline-offset-4"
+                  >
+                    Send a support request
+                  </Link>
+                  .
+                </p>
+              )}
             </Reveal>
           </section>
         ))}

@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { nav, siteUrl } from "@/content/site";
+import { nav, secondaryPages, siteUrl } from "@/content/site";
 
-// Built from the main navigation. Uses siteUrl when set, otherwise the host the
-// request came in on, so it is correct on previews and on the live domain.
+// Built from the main navigation plus the footer pages. Uses siteUrl when set,
+// otherwise the host the request came in on, so it is correct on previews and live.
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: ({ request }) => {
         const origin = siteUrl || new URL(request.url).origin;
-        const urls = nav
+        const urls = [...nav, ...secondaryPages]
           .map((n) => `  <url><loc>${origin}${n.to === "/" ? "/" : n.to}</loc></url>`)
           .join("\n");
         const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;

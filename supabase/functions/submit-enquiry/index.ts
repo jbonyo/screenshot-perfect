@@ -18,7 +18,7 @@ const MIN_FILL_MS = 3000;
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "content-type, apikey, authorization, x-client-info",
 };
 
@@ -154,8 +154,22 @@ async function sendEmail(e: Enquiry): Promise<boolean> {
   return res.ok;
 }
 
+function adminClient() {
+  return createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
+    auth: { persistSession: false },
+  });
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
+  // Daily keep-alive from .github/workflows/keep-supabase-awake.yml. A tiny database
+  // query counts as activity, so the free project is not paused. Returns no data.
+  if (req.method === "GET") {
+    const { error } = await adminClient()
+      .from("enquiries")
+      .select("id", { count: "exact", head: true });
+    return json({ ok: !error }, error ? 500 : 200);
+  }
   if (req.method !== "POST") return json({ ok: false, error: "Method not allowed." }, 405);
 
   let raw: unknown;
@@ -183,13 +197,7 @@ Deno.serve(async (req) => {
 
   const ip = (req.headers.get("x-forwarded-for") ?? "").split(",")[0]!.trim() || "unknown";
   const ipHash = await hashIp(ip);
-  const db = createClient(
-    Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-    {
-      auth: { persistSession: false },
-    },
-  );
+  const db = adminClient();
 
   const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
   const { count: recent, error: countError } = await db

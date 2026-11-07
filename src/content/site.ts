@@ -91,6 +91,48 @@ export const nav = [
   { label: "Contact", to: "/contact" as const },
 ];
 
+// Pages outside the main navigation, linked from the footer and listed in the sitemap.
+export const secondaryPages = [
+  { label: "Support request", to: "/support" as const },
+  { label: "Privacy Policy", to: "/privacy" as const },
+  { label: "Terms", to: "/terms" as const },
+];
+
+// Where the quote and support forms send enquiries (see supabase/README.md).
+export const enquiryEndpoint =
+  "https://aakehgdlubuzjdswzuvk.supabase.co/functions/v1/submit-enquiry";
+
+// Owner answers, 7 November 2026. Used in thank-you messages and the Privacy Policy.
+export const enquiry = {
+  replyPromise: "within one business day",
+  siteSurveyLabel: "Request a free site survey",
+  retentionMonths: 24,
+};
+
+// Cookieless analytics (Umami Cloud). No script loads while the ID is empty.
+export const analytics = {
+  umamiWebsiteId: "cb2a6116-5482-4480-90a8-f2c4161eac47",
+  scriptSrc: "https://cloud.umami.is/script.js",
+};
+
+// Data-protection facts for the Privacy Policy. Only fill in what is true.
+export const dataProtection = {
+  // ODPC registration is being applied for; leave empty until a number is issued.
+  odpcRegistrationNumber: "",
+  storage: "Supabase, hosted in Ireland (European Union)",
+  // Set to true once a lawyer or data-protection adviser has reviewed the legal pages.
+  legalPagesReviewed: false,
+  lastUpdated: "7 November 2026",
+};
+
+// Click-to-chat link with a pre-filled first message.
+export function whatsappLink(topic?: string) {
+  const text = topic
+    ? `Hello Apexon, I'd like to ask about ${topic}.`
+    : "Hello Apexon, I'd like to ask about your services.";
+  return `${contact.whatsapp.href}?text=${encodeURIComponent(text)}`;
+}
+
 // All photos are stock or generated images. The footer says "Photos are illustrative"
 // and each alt text ends "(illustrative image)" (owner decision, 7 November 2026).
 export const images = {
@@ -125,6 +167,7 @@ export const facts = [
 export const services = [
   {
     slug: "networking",
+    whatsappTopic: "structured cabling",
     title: "Networking & Structured Cabling",
     short:
       "Copper and fibre cabling, racks, and patching, designed, installed, labelled, and tested.",
@@ -138,6 +181,7 @@ export const services = [
   },
   {
     slug: "infrastructure",
+    whatsappTopic: "IT infrastructure",
     title: "IT Infrastructure",
     short: "Servers, switching, and Wi-Fi that support daily operations without drama.",
     points: [
@@ -150,6 +194,7 @@ export const services = [
   },
   {
     slug: "iptv-av",
+    whatsappTopic: "IPTV and audiovisual systems",
     title: "IPTV & Audiovisual Systems",
     short: "Displays, IPTV distribution, and meeting-room AV for institutions and corporates.",
     points: ["IPTV distribution", "Meeting & training room AV", "Display & signage installs"],
@@ -158,6 +203,7 @@ export const services = [
   },
   {
     slug: "maintenance",
+    whatsappTopic: "maintenance and technical support",
     title: "Maintenance & Technical Support",
     short:
       "Planned maintenance and fault support for the systems we install, and for existing networks.",

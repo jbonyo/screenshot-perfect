@@ -4,14 +4,14 @@ Prepared 7 November 2026 on branch `phase-0-prerequisites`.
 
 ## Decisions
 
-| Decision     | Outcome                                                                             |
-| ------------ | ----------------------------------------------------------------------------------- |
-| Hero         | Static: one image, one message, one main "Request a Quote" button                   |
-| Enquiries    | Email to apexontech2@gmail.com plus a database table (public can add, not read)     |
-| Analytics    | Cookieless                                                                          |
-| Photos       | 1C (Unsplash, Sammyayot254), 2B, 3A. Approved 7 November 2026                       |
-| Social links | Keep Instagram, TikTok and X for now; LinkedIn and the real Facebook page to follow |
-| ODPC         | Registered (per owner). Certificate to be filed for the Phase 3 documents page      |
+| Decision     | Outcome                                                                                                                                                                           |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hero         | Static: one image, one message, one main "Request a Quote" button                                                                                                                 |
+| Enquiries    | Email to apexontech2@gmail.com plus a database table (public can add, not read)                                                                                                   |
+| Analytics    | Cookieless                                                                                                                                                                        |
+| Photos       | 1C (Unsplash, Sammyayot254), 2B, 3A. Approved 7 November 2026                                                                                                                     |
+| Social links | Keep Instagram, TikTok and X for now; LinkedIn and the real Facebook page to follow                                                                                               |
+| ODPC         | Corrected 7 Nov 2026: not yet registered; owner will apply. Privacy Policy shows no number until issued. The eGP supplier number (SR/eGP/2025/52816) is a different registration. |
 
 ## Confirmed facts
 

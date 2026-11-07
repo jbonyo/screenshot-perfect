@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { MobileActionBar, SiteFooter, SiteHeader } from "@/components/site/SiteChrome";
 import {
   address,
+  analytics,
   company,
   contact,
   openingHours,
@@ -115,7 +116,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: company.name },
       { name: "theme-color", content: "#0e0e0e" },
     ],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify(organisationData()) }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(organisationData()) },
+      // Cookieless analytics, approved in the Phase 2 brief. Loads only once an ID is set.
+      ...(analytics.umamiWebsiteId
+        ? [{ src: analytics.scriptSrc, defer: true, "data-website-id": analytics.umamiWebsiteId }]
+        : []),
+    ],
     links: [
       // Self-hosted; preloading the main font lets the hero headline paint sooner.
       {
