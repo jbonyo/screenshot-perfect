@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { nav, secondaryPages, services, siteUrl } from "@/content/site";
+import { guides, nav, secondaryPages, services, siteUrl } from "@/content/site";
 
-// Built from the main navigation, the footer pages and each service page. Uses
+// Built from the main navigation, the footer pages, each service page and each guide. Uses
 // siteUrl when set, otherwise the request's host, so it is correct on previews and live.
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -11,6 +11,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const paths = [
           ...nav.map((n) => n.to),
           ...services.map((s) => `/services/${s.slug}`),
+          ...guides.map((g) => `/guides/${g.slug}`),
           ...secondaryPages.map((p) => p.to),
         ];
         const urls = paths.map((path) => `  <url><loc>${origin}${path}</loc></url>`).join("\n");

@@ -16,11 +16,15 @@ import { Route as ComplianceRouteImport } from './routes/compliance'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HandoverRouteImport } from './routes/handover'
+import { Route as HowWePriceRouteImport } from './routes/how-we-price'
+import { Route as MaintenancePlansRouteImport } from './routes/maintenance-plans'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as GuidesIndexRouteImport } from './routes/guides.index'
+import { Route as GuidesSlugRouteImport } from './routes/guides.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 
@@ -59,6 +63,16 @@ const HandoverRoute = HandoverRouteImport.update({
   path: '/handover',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HowWePriceRoute = HowWePriceRouteImport.update({
+  id: '/how-we-price',
+  path: '/how-we-price',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaintenancePlansRoute = MaintenancePlansRouteImport.update({
+  id: '/maintenance-plans',
+  path: '/maintenance-plans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnersRoute = PartnersRouteImport.update({
   id: '/partners',
   path: '/partners',
@@ -84,6 +98,16 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesSlugRoute = GuidesSlugRouteImport.update({
+  id: '/guides/$slug',
+  path: '/guides/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/services/',
   path: '/services/',
@@ -103,12 +127,16 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/handover': typeof HandoverRoute
+  '/how-we-price': typeof HowWePriceRoute
+  '/maintenance-plans': typeof MaintenancePlansRoute
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/guides/': typeof GuidesIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -119,12 +147,16 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/handover': typeof HandoverRoute
+  '/how-we-price': typeof HowWePriceRoute
+  '/maintenance-plans': typeof MaintenancePlansRoute
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/guides': typeof GuidesIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
@@ -136,12 +168,16 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/handover': typeof HandoverRoute
+  '/how-we-price': typeof HowWePriceRoute
+  '/maintenance-plans': typeof MaintenancePlansRoute
   '/partners': typeof PartnersRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/guides/': typeof GuidesIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -154,12 +190,16 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/handover'
+    | '/how-we-price'
+    | '/maintenance-plans'
     | '/partners'
     | '/privacy'
     | '/sitemap.xml'
     | '/support'
     | '/terms'
+    | '/guides/$slug'
     | '/services/$slug'
+    | '/guides/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -170,12 +210,16 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/handover'
+    | '/how-we-price'
+    | '/maintenance-plans'
     | '/partners'
     | '/privacy'
     | '/sitemap.xml'
     | '/support'
     | '/terms'
+    | '/guides/$slug'
     | '/services/$slug'
+    | '/guides'
     | '/services'
   id:
     | '__root__'
@@ -186,12 +230,16 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/handover'
+    | '/how-we-price'
+    | '/maintenance-plans'
     | '/partners'
     | '/privacy'
     | '/sitemap.xml'
     | '/support'
     | '/terms'
+    | '/guides/$slug'
     | '/services/$slug'
+    | '/guides/'
     | '/services/'
   fileRoutesById: FileRoutesById
 }
@@ -203,12 +251,16 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   HandoverRoute: typeof HandoverRoute
+  HowWePriceRoute: typeof HowWePriceRoute
+  MaintenancePlansRoute: typeof MaintenancePlansRoute
   PartnersRoute: typeof PartnersRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
+  GuidesSlugRoute: typeof GuidesSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
@@ -263,6 +315,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HandoverRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/how-we-price': {
+      id: '/how-we-price'
+      path: '/how-we-price'
+      fullPath: '/how-we-price'
+      preLoaderRoute: typeof HowWePriceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/maintenance-plans': {
+      id: '/maintenance-plans'
+      path: '/maintenance-plans'
+      fullPath: '/maintenance-plans'
+      preLoaderRoute: typeof MaintenancePlansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partners': {
       id: '/partners'
       path: '/partners'
@@ -298,6 +364,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/$slug': {
+      id: '/guides/$slug'
+      path: '/guides/$slug'
+      fullPath: '/guides/$slug'
+      preLoaderRoute: typeof GuidesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services/': {
       id: '/services/'
       path: '/services'
@@ -323,12 +403,16 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   HandoverRoute: HandoverRoute,
+  HowWePriceRoute: HowWePriceRoute,
+  MaintenancePlansRoute: MaintenancePlansRoute,
   PartnersRoute: PartnersRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
+  GuidesSlugRoute: GuidesSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
