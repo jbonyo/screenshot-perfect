@@ -230,7 +230,30 @@
   transform: translateY(24px);
 }
 
+/* Diagram connector: a solid track with a dashed "signal" moving along it. */
+.diagram-line,
+.diagram-signal {
+  vector-effect: non-scaling-stroke;
+  stroke-width: 3;
+}
+.diagram-line {
+  stroke: var(--border);
+}
+.diagram-signal {
+  stroke: var(--primary);
+  stroke-dasharray: 6 18;
+  animation: signal 1.6s linear infinite;
+}
+@keyframes signal {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .diagram-signal {
+    animation: none;
+  }
   *,
   *::before,
   *::after {
